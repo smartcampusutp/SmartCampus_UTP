@@ -14,7 +14,7 @@ with open('style.css') as f:
 st_autorefresh(interval=50000, limit=None, key="refresh_counter")
 
 # ------------------- CARGAR INFO -------------------
-df = pd.read_csv("Data/uplinks_2025-08-31.csv") # <-- NOMBRE DEL CSV REAL
+df = pd.read_csv("Data/uplinks.csv") # <-- NOMBRE DEL CSV REAL
 df['time'] = pd.to_datetime(df['time'], errors='coerce')
 
 # ------------------- BARRA DE SELECCIÓN -------------------
