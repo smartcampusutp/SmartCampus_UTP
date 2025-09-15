@@ -12,12 +12,16 @@ with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # ================= AUTOREFRESH =================
-AUTOREFRESH_INTERVAL = 50_000  # ms (50s)
-refresh_count = st_autorefresh(interval=AUTOREFRESH_INTERVAL, limit=None, key="refresh_counter")
+AUTOREFRESH_INTERVAL = 50  # segundos
+st_autorefresh(interval=AUTOREFRESH_INTERVAL * 1000, limit=None, key="refresh_counter")
 
-# ================= CONTADOR PARA PRÓXIMA ACTUALIZACIÓN =================
-time_remaining = AUTOREFRESH_INTERVAL / 1000  # segundos
-st.sidebar.markdown(f"**Siguiente actualización en:** {int(time_remaining)} s")
+# ================= CONTADOR DINÁMICO =================
+# Creamos un contenedor vacío que vamos a actualizar
+countdown_placeholder = st.sidebar.empty()
+
+for remaining in range(AUTOREFRESH_INTERVAL, 0, -1):
+    countdown_placeholder.markdown(f"**Siguiente actualización en:** {remaining} s")
+    time.sleep(1)
 
 # ================= CARGAR INFO =================
 df = pd.read_csv("Data/uplinks.csv")
@@ -86,4 +90,3 @@ with col2:
 # ================= GRAFICO TEMP HUMEDAD =================
 st.markdown('### Line chart')
 st.line_chart(df, x='time', y=plot_data, height=400)
-
