@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
 
 st.title("Dashboard - Isla de Calor")
-st.image("https://ibb.co/mVwT2HHw", caption=".")
+st.image("https://i.ibb.co/Q3RQT66R/SMT.png", caption=".")
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 
 # ESTILO CSV PARA QUE SE VEA BIEN BONITO
