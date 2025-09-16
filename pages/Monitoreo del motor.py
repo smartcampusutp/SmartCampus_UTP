@@ -21,11 +21,19 @@ def load_csv(path):
 
 df = load_csv(CSV_FILE)
 
-# --- Función para graficar ---
+# --- Función para graficar con escala dinámica ---
 def plot_line(df, y_cols, title="", y_label="Valor"):
     df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
     min_time = df["time"].min()
     max_time = df["time"].max()
+
+    # Calcular min y max dinámicos de los valores
+    min_val = df_melted["valor"].min()
+    max_val = df_melted["valor"].max()
+
+    # Agregar margen del 5%
+    rango_min = int(min_val - abs(min_val) * 0.05)
+    rango_max = int(max_val + abs(max_val) * 0.05)
 
     chart = (
         alt.Chart(df_melted)
@@ -36,7 +44,12 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
                 scale=alt.Scale(domain=[min_time, max_time]),
                 axis=alt.Axis(format="%H:%M", labelAngle=0, labelOverlap=True)
             ),
-            y=alt.Y("valor:Q", title=y_label),
+            y=alt.Y(
+                "valor:Q",
+                title=y_label,
+                scale=alt.Scale(domain=[rango_min, rango_max]),
+                axis=alt.Axis(format="d")  # Solo enteros
+            ),
             color="variable:N"
         )
         .properties(width=600, height=300, title=title)
