@@ -7,7 +7,7 @@ CSV_FILE = "Data_udp/smartcampus(09-16-09).csv"  # Ajusta el nombre a tu archivo
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Dashboard - OPTA")
-
+st.image("https://i.ibb.co/Dy8pxgj/ANGEL-MOTOR.png", caption=".")
 # Cargar el CSV
 @st.cache_data
 def load_csv(path):
