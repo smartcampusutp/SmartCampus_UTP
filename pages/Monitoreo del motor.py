@@ -63,17 +63,17 @@ if df is not None:
     st.altair_chart(chart, use_container_width=True)
 
     # 4️⃣ BVOC
-    st.subheader("🌫️ BVOC")
+    st.subheader("🌫️ Compuestos Orgánicos Volátiles")
     chart = plot_line(df, ["bvoc"], "BVOC", y_label="ppb")
     st.altair_chart(chart, use_container_width=True)
 
     # 5️⃣ IAQ
-    st.subheader("🏭 IAQ")
-    chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm")
+    st.subheader("🏭Índice de Calidad de Aire")
+    chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ICA")
     st.altair_chart(chart, use_container_width=True)
 
     # 6️⃣ Anomalía
-    st.subheader("⚠️ Anomalía")
+    st.subheader("⚠️ Anomalía de Vibración")
     st.dataframe(df[["time", "anomaly"]].tail(10))
     chart = plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score")
     st.altair_chart(chart, use_container_width=True)
