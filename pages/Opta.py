@@ -1,58 +1,41 @@
 import streamlit as st
 import pandas as pd
-import os
-from glob import glob
 import altair as alt
 
-BASE_DIR = "Data_udp"
-VARIABLES = {
-    "aceleracion": ["accX", "accY", "accZ"],
-    "temp_x100": ["temp_x100"],
-    "hum_x100": ["hum_x100"],
-    "bvoc_x100": ["bvoc_x100"],
-    "iaq_x10": ["iaq_x10"],
-    "anomaly_score": ["anomaly_score"],
-    "fault": ["fault"],
-}
+# Ruta del archivo CSV único
+CSV_FILE = "data_udp/sensores.csv"  # Ajusta el nombre a tu archivo real
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Dashboard de Sensores en Tiempo Real")
 
-# Función para listar archivos CSV de una variable
-def list_csv_files(var):
-    pattern = os.path.join(BASE_DIR, f"*{var}*.csv")
-    return sorted(glob(pattern), key=os.path.getctime, reverse=True)
-
-# Función para cargar CSV seleccionado
+# Cargar el CSV
+@st.cache_data
 def load_csv(path):
     try:
         df = pd.read_csv(path)
-        if "timestamp" in df.columns:
-            df["timestamp"] = pd.to_datetime(df["timestamp"])
+        if "time" in df.columns:
+            df["time"] = pd.to_datetime(df["time"])
         return df
     except Exception as e:
         st.error(f"Error leyendo archivo: {e}")
         return None
 
-# Función para graficar con ajuste de escala del eje X
+df = load_csv(CSV_FILE)
+
+# Función para graficar
 def plot_line(df, y_cols, title=""):
-    df_melted = df.melt("timestamp", value_vars=y_cols, var_name="variable", value_name="valor")
-    min_time = df["timestamp"].min()
-    max_time = df["timestamp"].max()
+    df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
+    min_time = df["time"].min()
+    max_time = df["time"].max()
 
     chart = (
         alt.Chart(df_melted)
         .mark_line(clip=True)
         .encode(
             x=alt.X(
-                "timestamp:T",
+                "time:T",
                 scale=alt.Scale(domain=[min_time, max_time]),
-                axis=alt.Axis(
-                    format="%H:%M",
-                    tickMinStep=3600,  # ticks cada 1 hora
-                    labelAngle=0,
-                    labelOverlap=True
-                )
+                axis=alt.Axis(format="%H:%M", labelAngle=0, labelOverlap=True)
             ),
             y=alt.Y("valor:Q", scale=alt.Scale(zero=False)),
             color="variable:N"
@@ -62,22 +45,42 @@ def plot_line(df, y_cols, title=""):
     )
     return chart
 
-cols = st.columns(2)
+if df is not None:
+    cols = st.columns(2)
 
-for i, (var, cols_names) in enumerate(VARIABLES.items()):
-    with cols[i % 2]:
-        st.subheader(f"📈 {var}")
-        files = list_csv_files(var)
-        if not files:
-            st.warning(f"No hay archivos disponibles para {var}.")
-            continue
-        # Selector para elegir archivo/día
-        selection = st.selectbox(f"Selecciona archivo para {var}", options=files, format_func=lambda x: os.path.basename(x))
-        df = load_csv(selection)
-        if df is not None:
-            st.caption(f"Archivo seleccionado: {os.path.basename(selection)}")
-            if var == "fault":
-                st.dataframe(df.tail(10))
-            else:
-                chart = plot_line(df, cols_names, var)
-                st.altair_chart(chart, use_container_width=True)
+    # 1️⃣ Aceleración
+    with cols[0]:
+        st.subheader("📈 Aceleración (RMS)")
+        chart = plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS")
+        st.altair_chart(chart, use_container_width=True)
+
+    # 2️⃣ Temperatura
+    with cols[1]:
+        st.subheader("🌡️ Temperatura")
+        chart = plot_line(df, ["temperature"], "Temperatura")
+        st.altair_chart(chart, use_container_width=True)
+
+    # 3️⃣ Humedad
+    with cols[0]:
+        st.subheader("💧 Humedad")
+        chart = plot_line(df, ["humidity"], "Humedad")
+        st.altair_chart(chart, use_container_width=True)
+
+    # 4️⃣ BVOC
+    with cols[1]:
+        st.subheader("🌫️ BVOC")
+        chart = plot_line(df, ["bvoc"], "BVOC")
+        st.altair_chart(chart, use_container_width=True)
+
+    # 5️⃣ IAQ
+    with cols[0]:
+        st.subheader("🏭 IAQ")
+        chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire")
+        st.altair_chart(chart, use_container_width=True)
+
+    # 6️⃣ Anomalía
+    with cols[1]:
+        st.subheader("⚠️ Anomalía")
+        st.dataframe(df[["time", "anomaly"]].tail(10))
+        chart = plot_line(df, ["anomaly"], "Anomaly Score")
+        st.altair_chart(chart, use_container_width=True)
