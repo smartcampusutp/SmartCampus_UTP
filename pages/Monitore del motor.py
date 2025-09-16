@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 
 # Ruta del archivo CSV único
-CSV_FILE = "data_udp/sensores.csv"  # Ajusta el nombre a tu archivo real
+CSV_FILE = "Data_udp/smartcampus(09-16-09).csv"  # Ajusta el nombre a tu archivo real
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Dashboard de Sensores en Tiempo Real")
