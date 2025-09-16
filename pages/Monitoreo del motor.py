@@ -29,7 +29,7 @@ def compute_y_domain(series):
         return None
     min_val = s.min()
     max_val = s.max()
-    margin = max((max_val - min_val) * 0.05, 1)
+    margin = max((max_val - min_val) * 0.005, 1)
     rango_min = math.floor(min_val - margin)
     rango_max = math.ceil(max_val + margin)
     if rango_min == rango_max:
