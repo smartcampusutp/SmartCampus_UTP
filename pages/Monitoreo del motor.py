@@ -130,39 +130,28 @@ if df is not None and not df.empty:
     st.divider()
 
     # --- Gráficos ---
-    cols = st.columns(2)
-    with cols[0]:
         st.subheader("📈 Aceleración (RMS)")
         st.altair_chart(plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)"),
                         use_container_width=True)
-
-    with cols[1]:
         st.subheader("🌡️ Temperatura")
         st.altair_chart(plot_line(df, ["temperature"], "Temperatura", y_label="°C"),
                         use_container_width=True)
 
-    cols = st.columns(2)
-    with cols[0]:
         st.subheader("💧 Humedad")
         st.altair_chart(plot_line(df, ["humidity"], "Humedad", y_label="% HR"),
                         use_container_width=True)
 
-    with cols[1]:
         st.subheader("🌫️ Compuestos Orgánicos Volátiles")
         st.altair_chart(plot_line(df, ["bvoc"], "BVOC", y_label="ppb"),
                         use_container_width=True)
 
-    cols = st.columns(2)
-    with cols[0]:
         st.subheader("🏭 Índice de Calidad de Aire")
         st.altair_chart(plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm"),
                         use_container_width=True)
 
-    with cols[1]:
         st.subheader("⚠️ Anomalía de Vibración")
         # mostrar tabla con últimas 10 anomalías
         if "anomaly" in df.columns:
-            st.dataframe(df[["time", "anomaly"]].tail(10))
         st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
                         use_container_width=True)
 
