@@ -71,10 +71,8 @@ if df is not None:
         st.subheader("🌫️ Compuestos Organicos Volátiles")
         chart = plot_line(df, ["bvoc"], "BVOC")
         st.altair_chart(chart, use_container_width=True)
-
-    # 5️⃣ IAQ
-    with cols[0]:
-        st.subheader("🏭 Índice de Calidad de Aire")
+        
+st.markdown('🏭 Índice de Calidad de Aire')
         chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire")
         st.altair_chart(chart, use_container_width=True)
 
