@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+import math
 
 # Ruta del archivo CSV único
 CSV_FILE = "Data_udp/smartcampusudp.csv"  # Ajusta el nombre de tu archivo
@@ -31,9 +32,15 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     min_val = df_melted["valor"].min()
     max_val = df_melted["valor"].max()
 
-    # Agregar margen del 5%
-    rango_min = int(min_val - abs(min_val) * 0.005)
-    rango_max = int(max_val + abs(max_val) * 0.005)
+    # Agregar margen del 5% y forzar al menos 1 unidad
+    margin = max((max_val - min_val) * 0.05, 1)
+
+    rango_min = math.floor(min_val - margin)
+    rango_max = math.ceil(max_val + margin)
+
+    # Evitar que rango_min == rango_max
+    if rango_min == rango_max:
+        rango_max += 1
 
     chart = (
         alt.Chart(df_melted)
