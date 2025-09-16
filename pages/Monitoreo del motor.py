@@ -6,7 +6,7 @@ import altair as alt
 CSV_FILE = "Data_udp/smartcampus(09-16-09).csv"  # Ajusta el nombre de tu archivo
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
-st.title("📊 Dashboard de Sensores en Tiempo Real")
+st.title("📊 Estado bomba agua helada cuarto de máquinas")
 
 # --- Cargar CSV ---
 def load_csv(path):
@@ -46,7 +46,7 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
 
 if df is not None and not df.empty:
     # --- Última actualización ---
-    st.markdown("## 📍 Última Actualización")
+    st.markdown("## 📍 Valores en tiempo real")
     latest = df.iloc[-1]
 
     # Primera fila de métricas
