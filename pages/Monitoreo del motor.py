@@ -134,7 +134,6 @@ if df is not None and not df.empty:
                     use_container_width=True)
 
     st.subheader("⚠️ Anomalía de Vibración")
-    if "anomaly" in df.columns:
     st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
                     use_container_width=True)
 
