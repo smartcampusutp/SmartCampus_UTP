@@ -45,18 +45,29 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     return chart
 
 if df is not None:
-    # 🔹 Panel de última actualización
     st.markdown("## 🟢 Última Actualización de Sensores")
-    latest = df.iloc[-1]  # Última fila del CSV
 
+    latest = df.iloc[-1]
+
+    # 🔹 Primera fila: Temp, Humedad, Presión, BVOC, IAQ
     col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("🌡️ Temperatura", f"{latest['temperature']:.2f} °C")
-    col2.metric("💧 Humedad", f"{latest['humidity']:.2f} %")
-    col3.metric("📈 Aceleración RMS X", f"{latest['accXRMS']:.2f}")
-    col4.metric("🌫️ BVOC", f"{latest['bvoc']:.0f} ppb")
-    col5.metric("🏭 IAQ", f"{latest['iaq']:.0f} ppm")
+    with col1: st.markdown(circle_metric("🌡️ Temp", f"{latest['temperature']:.1f}", "°C"), unsafe_allow_html=True)
+    with col2: st.markdown(circle_metric("💧 Humedad", f"{latest['humidity']:.1f}", "%"), unsafe_allow_html=True)
+    with col3: st.markdown(circle_metric("🌬️ Presión", f"{latest['pressure_hPa']:.0f}", "hPa"), unsafe_allow_html=True)
+    with col4: st.markdown(circle_metric("🌫️ BVOC", f"{latest['bvoc']:.0f}", "ppb"), unsafe_allow_html=True)
+    with col5: st.markdown(circle_metric("🏭 IAQ", f"{latest['iaq']:.0f}", "ppm"), unsafe_allow_html=True)
 
-    st.divider()  # Línea separadora para que quede más bonito
+    st.divider()
+
+    # 🔹 Segunda fila: Aceleraciones X, Y, Z en columna
+    st.markdown("### 📈 Aceleración RMS")
+    col_acc = st.columns(1)[0]
+    with col_acc:
+        st.markdown(circle_metric("X", f"{latest['accXRMS']:.2f}"), unsafe_allow_html=True)
+        st.markdown(circle_metric("Y", f"{latest['accYRMS']:.2f}"), unsafe_allow_html=True)
+        st.markdown(circle_metric("Z", f"{latest['accZRMS']:.2f}"), unsafe_allow_html=True)
+
+    st.divider()
 
     cols = st.columns(2)
 
