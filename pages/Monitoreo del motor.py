@@ -100,6 +100,15 @@ if df is not None and not df.empty:
         st.metric("🌫️ BVOC", f"{safe_metric(latest, 'bvoc', '.1f')} ppb")
     with col5:
         st.metric("🏭 Calidad Aire (IAQ)", f"{safe_metric(latest, 'iaq', '.0f')} ppm")
+    
+    # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
+    col6, col7, col8 = st.columns(3)
+    with col6:
+        st.metric("📈 Aceleración X", f"{int(latest['accXRMS'])} m/s²")
+    with col7:
+        st.metric("📈 Aceleración Y", f"{int(latest['accYRMS'])} m/s²")
+    with col8:
+        st.metric("📈 Aceleración Z", f"{int(latest['accZRMS'])} m/s²")
 
     st.divider()
 
@@ -126,7 +135,6 @@ if df is not None and not df.empty:
 
     st.subheader("⚠️ Anomalía de Vibración")
     if "anomaly" in df.columns:
-        st.dataframe(df[["time", "anomaly"]].tail(10))
     st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
                     use_container_width=True)
 
