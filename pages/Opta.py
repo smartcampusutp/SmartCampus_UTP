@@ -6,7 +6,7 @@ import altair as alt
 CSV_FILE = "Data_udp/smartcampus(09-16-09).csv"  # Ajusta el nombre a tu archivo real
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
-st.sidebar.header('Dashboard - OPTA')
+st.title("📊 Dashboard - OPTA")
 
 # Cargar el CSV
 @st.cache_data
