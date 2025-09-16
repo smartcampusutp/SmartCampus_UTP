@@ -8,6 +8,7 @@ CSV_FILE = "Data_udp/smartcampus(09-16-09).csv"  # Ajusta el nombre a tu archivo
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Dashboard - OPTA")
 st.image("https://i.ibb.co/Dy8pxgj/ANGEL-MOTOR.png", caption=".")
+
 # Cargar el CSV
 @st.cache_data
 def load_csv(path):
@@ -45,6 +46,7 @@ def plot_line(df, y_cols, title=""):
     )
     return chart
 
+
 if df is not None:
     cols = st.columns(2)
 
@@ -68,19 +70,18 @@ if df is not None:
 
     # 4️⃣ BVOC
     with cols[1]:
-        st.subheader("🌫️ Compuestos Organicos Volátiles")
+        st.subheader("🌫️ Compuestos Orgánicos Volátiles")
         chart = plot_line(df, ["bvoc"], "BVOC")
         st.altair_chart(chart, use_container_width=True)
-        
-# 5️⃣ IAQ
-    with cols[0]:
-        st.subheader("🏭 Índice de Calidad de Aire")
-        chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire")
-        st.altair_chart(chart, use_container_width=True)
+
+    # 🚨 Los últimos ocupan todo el ancho 🚨
+    # 5️⃣ IAQ
+    st.subheader("🏭 Índice de Calidad de Aire")
+    chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire")
+    st.altair_chart(chart, use_container_width=True)
 
     # 6️⃣ Anomalía
-    with cols[1]:
-        st.subheader("⚠️ Anomalía de Vibración")
-        st.dataframe(df[["time", "anomaly"]].tail(10))
-        chart = plot_line(df, ["anomaly"], "Anomaly Score")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("⚠️ Anomalía de Vibración")
+    st.dataframe(df[["time", "anomaly"]].tail(10))
+    chart = plot_line(df, ["anomaly"], "Anomaly Score")
+    st.altair_chart(chart, use_container_width=True)
