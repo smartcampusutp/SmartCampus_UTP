@@ -1,0 +1,2 @@
+time,deviceName,accXRMS,accYRMS,accZRMS,temperature,humidity,bvoc,iaq,anomaly
+2025-09-16 09:30:33,optaA,100.0,91.0,124.0,35.66,59.519999999999996,52.16,5.3,370.0
