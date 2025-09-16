@@ -32,8 +32,8 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     max_val = df_melted["valor"].max()
 
     # Agregar margen del 5%
-    rango_min = int(min_val - abs(min_val) * 0.05)
-    rango_max = int(max_val + abs(max_val) * 0.05)
+    rango_min = int(min_val - abs(min_val) * 0.005)
+    rango_max = int(max_val + abs(max_val) * 0.005)
 
     chart = (
         alt.Chart(df_melted)
