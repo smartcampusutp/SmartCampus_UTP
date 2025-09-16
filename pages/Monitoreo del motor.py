@@ -96,38 +96,31 @@ if df is not None and not df.empty:
     # --- Gráficos ---
     cols = st.columns(2)
 
-    with cols[0]:
         st.subheader("📈 Aceleración (RMS)")
         chart = plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)")
         st.altair_chart(chart, use_container_width=True)
 
-    with cols[1]:
         st.subheader("🌡️ Temperatura")
         chart = plot_line(df, ["temperature"], "Temperatura", y_label="°C")
         st.altair_chart(chart, use_container_width=True)
 
     cols = st.columns(2)
 
-    with cols[0]:
         st.subheader("💧 Humedad")
         chart = plot_line(df, ["humidity"], "Humedad", y_label="% HR")
         st.altair_chart(chart, use_container_width=True)
 
-    with cols[1]:
-        st.subheader("🌫️ BVOC")
+        st.subheader("🌫️ Compuestos Orgánicos Volátiles")
         chart = plot_line(df, ["bvoc"], "BVOC", y_label="ppb")
         st.altair_chart(chart, use_container_width=True)
 
     cols = st.columns(2)
 
-    with cols[0]:
-        st.subheader("🏭 IAQ")
+        st.subheader("🏭 Índice de Calidad de Aire")
         chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm")
         st.altair_chart(chart, use_container_width=True)
 
-    with cols[1]:
-        st.subheader("⚠️ Anomalía")
-        st.dataframe(df[["time", "anomaly"]].tail(10))
+        st.subheader("⚠️ Anomalía de Vibración")
         chart = plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score")
         st.altair_chart(chart, use_container_width=True)
 
