@@ -59,7 +59,7 @@ if df is not None:
     # 2️⃣ Temperatura
     with cols[1]:
         st.subheader("🌡️ Temperatura")
-        chart = plot_line(df, ["temperature"], "Temperatura")
+        chart = plot_line(df, ["temperature"], "Temperatura", y_label="°C")
         st.altair_chart(chart, use_container_width=True)
         
     # 3️⃣ Humedad
