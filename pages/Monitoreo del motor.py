@@ -45,6 +45,19 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     return chart
 
 if df is not None:
+    # 🔹 Panel de última actualización
+    st.markdown("## 🟢 Última Actualización de Sensores")
+    latest = df.iloc[-1]  # Última fila del CSV
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric("🌡️ Temperatura", f"{latest['temperature']:.2f} °C")
+    col2.metric("💧 Humedad", f"{latest['humidity']:.2f} %")
+    col3.metric("📈 Aceleración RMS X", f"{latest['accXRMS']:.2f}")
+    col4.metric("🌫️ BVOC", f"{latest['bvoc']:.0f} ppb")
+    col5.metric("🏭 IAQ", f"{latest['iaq']:.0f} ppm")
+
+    st.divider()  # Línea separadora para que quede más bonito
+
     cols = st.columns(2)
 
     # 1️⃣ Aceleración
