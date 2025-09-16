@@ -74,6 +74,5 @@ if df is not None:
 
     # 6️⃣ Anomalía
     st.subheader("⚠️ Anomalía de Vibración")
-    st.dataframe(df[["time", "anomaly"]].tail(10))
     chart = plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score")
     st.altair_chart(chart, use_container_width=True)
