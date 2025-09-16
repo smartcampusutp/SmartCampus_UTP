@@ -4,7 +4,7 @@ import os
 from glob import glob
 import altair as alt
 
-BASE_DIR = "Data/data_udp"
+BASE_DIR = "Data_udp"
 VARIABLES = {
     "aceleracion": ["accX", "accY", "accZ"],
     "temp_x100": ["temp_x100"],
