@@ -36,7 +36,7 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
                 scale=alt.Scale(domain=[min_time, max_time]),
                 axis=alt.Axis(format="%H:%M", labelAngle=0, labelOverlap=True)
             ),
-            y=alt.Y("valor:Q", title=y_label),  # 👈 aquí va el nombre del eje Y
+            y=alt.Y("valor:Q", title=y_label),  # 👈 nombre del eje Y
             color="variable:N"
         )
         .properties(width=600, height=300, title=title)
@@ -48,32 +48,32 @@ if df is not None:
     cols = st.columns(2)
 
     # 1️⃣ Aceleración
-        st.subheader("📈 Aceleración (RMS)")
-        chart = plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("📈 Aceleración (RMS)")
+    chart = plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)")
+    st.altair_chart(chart, use_container_width=True)
 
     # 2️⃣ Temperatura
-        st.subheader("🌡️ Temperatura")
-        chart = plot_line(df, ["temperature"], "Temperatura", y_label="°C")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("🌡️ Temperatura")
+    chart = plot_line(df, ["temperature"], "Temperatura", y_label="°C")
+    st.altair_chart(chart, use_container_width=True)
 
     # 3️⃣ Humedad
-        st.subheader("💧 Humedad")
-        chart = plot_line(df, ["humidity"], "Humedad", y_label="% HR")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("💧 Humedad")
+    chart = plot_line(df, ["humidity"], "Humedad", y_label="% HR")
+    st.altair_chart(chart, use_container_width=True)
 
     # 4️⃣ BVOC
-        st.subheader("🌫️ BVOC")
-        chart = plot_line(df, ["bvoc"], "BVOC", y_label="ppb")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("🌫️ BVOC")
+    chart = plot_line(df, ["bvoc"], "BVOC", y_label="ppb")
+    st.altair_chart(chart, use_container_width=True)
 
     # 5️⃣ IAQ
-        st.subheader("🏭 IAQ")
-        chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("🏭 IAQ")
+    chart = plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm")
+    st.altair_chart(chart, use_container_width=True)
 
     # 6️⃣ Anomalía
-        st.subheader("⚠️ Anomalía")
-        st.dataframe(df[["time", "anomaly"]].tail(10))
-        chart = plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score")
-        st.altair_chart(chart, use_container_width=True)
+    st.subheader("⚠️ Anomalía")
+    st.dataframe(df[["time", "anomaly"]].tail(10))
+    chart = plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score")
+    st.altair_chart(chart, use_container_width=True)
