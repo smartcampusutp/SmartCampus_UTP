@@ -45,33 +45,30 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     return chart
 
 if df is not None and not df.empty:
-    # --- Última actualización ---
-    st.markdown("## 📍 Última Actualización")
-    latest = df.iloc[-1]
+st.markdown("## 📍 Última Actualización")
+latest = df.iloc[-1]
 
-    # Primera fila de métricas
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.metric("🌡️ Temperatura", f"{latest['temperature']:.1f} °C")
-    with col2:
-        st.metric("💧 Humedad", f"{latest['humidity']:.1f} %")
-    with col3:
-        st.metric("⚠️ Anomalía", f"{latest['anomaly']:.2f}")
-    with col4:
-        st.metric("🌫️ BVOC", f"{latest['bvoc']:.1f} ppb")
-    with col5:
-        st.metric("🏭 Calidad Aire (IAQ)", f"{latest['iaq']:.0f} ppm")
+empty1, col1, col2, col3, col4, col5, empty2 = st.columns([1,2,2,2,2,2,1])
 
-    # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
-    col6, col7, col8 = st.columns(3)
-    with col6:
-        st.metric("📈 Aceleración X", f"{latest['accXRMS']:.2f} m/s²")
-    with col7:
-        st.metric("📈 Aceleración Y", f"{latest['accYRMS']:.2f} m/s²")
-    with col8:
-        st.metric("📈 Aceleración Z", f"{latest['accZRMS']:.2f} m/s²")
+with col1:
+    st.metric("🌡️ Temperatura", f"{latest['temperature']:.1f} °C")
+with col2:
+    st.metric("💧 Humedad", f"{latest['humidity']:.1f} %")
+with col3:
+    st.metric("⚠️ Anomalía", f"{latest['anomaly']:.2f}")
+with col4:
+    st.metric("🌫️ BVOC", f"{latest['bvoc']:.1f} ppb")
+with col5:
+    st.metric("🏭 Calidad Aire (IAQ)", f"{latest['iaq']:.0f} ppm")
 
-    st.divider()
+# Segunda fila de métricas (aceleraciones centradas)
+empty3, col6, col7, col8, empty4 = st.columns([1,2,2,2,1])
+with col6:
+    st.metric("📈 Aceleración X", f"{latest['accXRMS']:.2f} m/s²")
+with col7:
+    st.metric("📈 Aceleración Y", f"{latest['accYRMS']:.2f} m/s²")
+with col8:
+    st.metric("📈 Aceleración Z", f"{latest['accZRMS']:.2f} m/s²")
 
     # --- Gráficos ---
     cols = st.columns(2)
