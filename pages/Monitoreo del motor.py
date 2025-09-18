@@ -5,15 +5,15 @@ import math
 import datetime as dt
 
 # Ruta del archivo CSV
-CSV_FILE = "Data_udp/smartcampusudp.csv"  # Ajusta a tu ruta
+CSV_FILE = "Data_udp/smartcampusudp.csv"
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Estado bomba agua helada cuarto de máquinas")
 
 # --- Cargar CSV con cache ---
-@st.cache_data(ttl=10)  # refresca cada 10 segundos
+@st.cache_data(ttl=10)
 def load_csv(path):
-    df = pd.read_csv(path, engine="pyarrow")  # más rápido
+    df = pd.read_csv(path, engine="pyarrow")
     if "time" in df.columns:
         df["time"] = pd.to_datetime(df["time"], errors="coerce")
     return df
@@ -45,9 +45,6 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
 
     min_time = df["time"].min()
     max_time = df["time"].max()
-    if pd.notna(min_time) and pd.notna(max_time) and min_time == max_time:
-        min_time = min_time - pd.Timedelta(seconds=30)
-        max_time = max_time + pd.Timedelta(seconds=30)
 
     y_domain = compute_y_domain(df_melted["valor"])
 
@@ -71,15 +68,15 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     )
     return chart
 
-# --- Filtrar solo últimas 4 horas + resample ---
+# --- Filtrar últimas 4 horas ---
 if df is not None and not df.empty:
-    now = df["time"].max()
-    if pd.notna(now):
+    if "time" in df.columns and df["time"].notna().any():
+        now = df["time"].max()
         ventana = now - dt.timedelta(hours=4)
-        df = df[df["time"] >= ventana]
+        df = df[df["time"] >= ventana]  # <-- FILTRO AQUÍ
 
-    # Resample a 200ms (5Hz) para suavizar
-    df = df.set_index("time").resample("200ms").mean().reset_index()
+        # Solo después de filtrar, hacemos resample
+        df = df.set_index("time").resample("200ms").mean().reset_index()
 
     st.markdown("## 📍 Valores en tiempo real")
     latest = df.iloc[-1]
@@ -117,7 +114,7 @@ if df is not None and not df.empty:
 
     st.divider()
 
-    # --- Gráficos uno debajo del otro ---
+    # --- Gráficos ---
     st.subheader("📈 Aceleración (RMS)")
     st.altair_chart(plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)"),
                     use_container_width=True)
