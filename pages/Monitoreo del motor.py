@@ -2,33 +2,30 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import math
+import datetime as dt
 
-# Ruta del archivo CSV único
-CSV_FILE = "Data_udp/smartcampusudp.csv"  # Ajusta el nombre de tu archivo
+# Ruta del archivo CSV
+CSV_FILE = "Data_udp/smartcampusudp.csv"  # Ajusta a tu ruta
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
 st.title("📊 Estado bomba agua helada cuarto de máquinas")
 
-# --- Cargar CSV ---
+# --- Cargar CSV con cache ---
+@st.cache_data(ttl=10)  # refresca cada 10 segundos
 def load_csv(path):
-    try:
-        df = pd.read_csv(path)
-        if "time" in df.columns:
-            df["time"] = pd.to_datetime(df["time"], errors="coerce")
-        return df
-    except Exception as e:
-        st.error(f"Error leyendo archivo: {e}")
-        return None
+    df = pd.read_csv(path, engine="pyarrow")  # más rápido
+    if "time" in df.columns:
+        df["time"] = pd.to_datetime(df["time"], errors="coerce")
+    return df
 
 df = load_csv(CSV_FILE)
 
-# --- Helper: calcular dominio Y robusto ---
+# --- Helper: calcular dominio Y ---
 def compute_y_domain(series):
     s = pd.to_numeric(series, errors="coerce").dropna()
     if s.empty:
         return None
-    min_val = s.min()
-    max_val = s.max()
+    min_val, max_val = s.min(), s.max()
     margin = max((max_val - min_val) * 0.005, 1)
     rango_min = math.floor(min_val - margin)
     rango_max = math.ceil(max_val + margin)
@@ -38,7 +35,7 @@ def compute_y_domain(series):
         rango_min, rango_max = rango_max - 1, rango_max
     return (rango_min, rango_max)
 
-# --- Función para graficar con escala dinámica ---
+# --- Función para graficar ---
 def plot_line(df, y_cols, title="", y_label="Valor"):
     df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
     df_melted["valor"] = pd.to_numeric(df_melted["valor"], errors="coerce")
@@ -74,8 +71,16 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     )
     return chart
 
-# --- Interfaz ---
+# --- Filtrar solo últimas 4 horas + resample ---
 if df is not None and not df.empty:
+    now = df["time"].max()
+    if pd.notna(now):
+        ventana = now - dt.timedelta(hours=4)
+        df = df[df["time"] >= ventana]
+
+    # Resample a 200ms (5Hz) para suavizar
+    df = df.set_index("time").resample("200ms").mean().reset_index()
+
     st.markdown("## 📍 Valores en tiempo real")
     latest = df.iloc[-1]
 
@@ -104,11 +109,11 @@ if df is not None and not df.empty:
     # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
     col6, col7, col8 = st.columns(3)
     with col6:
-        st.metric("📈 Aceleración X", f"{int(latest['accXRMS'])} m/s²")
+        st.metric("📈 Aceleración X", f"{safe_metric(latest, 'accXRMS', '.2f')} m/s²")
     with col7:
-        st.metric("📈 Aceleración Y", f"{int(latest['accYRMS'])} m/s²")
+        st.metric("📈 Aceleración Y", f"{safe_metric(latest, 'accYRMS', '.2f')} m/s²")
     with col8:
-        st.metric("📈 Aceleración Z", f"{int(latest['accZRMS'])} m/s²")
+        st.metric("📈 Aceleración Z", f"{safe_metric(latest, 'accZRMS', '.2f')} m/s²")
 
     st.divider()
 
