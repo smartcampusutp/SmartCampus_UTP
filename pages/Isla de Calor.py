@@ -17,7 +17,7 @@ with open('style.css') as f:
 st_autorefresh(interval=5000, limit=None, key="refresh_counter")  # recarga cada 5 segundos
 
 # ------------------- CSV LOCAL -------------------
-csv_path = "Data/uplinks.csv"
+csv_path = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/uplinks.csv"
 
 # Debug: mostrar última modificación del CSV
 if not os.path.exists(csv_path):
