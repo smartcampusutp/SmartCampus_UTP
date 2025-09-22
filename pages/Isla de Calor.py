@@ -3,22 +3,25 @@ import pandas as pd
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
 import os
+import time
 
 # ------------------- CONFIG -------------------
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 st.title("Dashboard - Isla de Calor")
 st.image("https://i.ibb.co/Q3RQT66R/SMT.png", caption=".")
 
-# ------------------- DEBUG CSV -------------------
+# ------------------- AUTOREFRESH -------------------
+st_autorefresh(interval=10000, limit=None, key="refresh_counter")  # recarga cada 10 segundos
+
+# ------------------- RUTA CSV -------------------
 csv_path = "Data/uplinks.csv"
+
+# Mostrar debug para confirmar que se está leyendo el CSV correcto
 if not os.path.exists(csv_path):
     st.error(f"El CSV no existe en la ruta: {os.path.abspath(csv_path)}")
 else:
     st.write("CSV path:", os.path.abspath(csv_path))
     st.write("Última modificación del CSV:", pd.to_datetime(os.path.getmtime(csv_path), unit='s'))
-
-# ------------------- AUTOREFRESH -------------------
-st_autorefresh(interval=10000, limit=None, key="refresh_counter")  # cada 10 segundos
 
 # ------------------- LEER CSV -------------------
 df = pd.read_csv(csv_path)
@@ -81,4 +84,5 @@ st.line_chart(df_sensor, x='time', y=plot_data, height=400)
 
 # ------------------- TIMESTAMP STREAMLIT -------------------
 st.markdown(f"Última actualización de Streamlit: {pd.Timestamp.now()}")
+
 
