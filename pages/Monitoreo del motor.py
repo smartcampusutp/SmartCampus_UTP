@@ -7,134 +7,252 @@ import datetime as dt
 CSV_FILE = "Data_udp/smartcampusudp.csv"
 
 st.set_page_config(page_title="Dashboard Sensores", layout="wide")
-st.title("📊 Estado bomba agua helada cuarto de máquinas")
+st.title("📊 Dashboard - ventana de 3 horas por día (optimizado)")
 
-# --- Cargar CSV ---
-@st.cache_data(ttl=30)
-def load_csv(path):
-    df = pd.read_csv(path, engine="pyarrow")
-    if "time" in df.columns:
-        df["time"] = pd.to_datetime(df["time"], errors="coerce")
-    return df
+# columnas esperadas (ajusta si tus columnas tienen otros nombres)
+DESIRED_COLS = ["temperature", "humidity", "anomaly", "bvoc", "iaq",
+                "accXRMS", "accYRMS", "accZRMS"]
 
-df = load_csv(CSV_FILE)
+# -----------------------
+# Utils para leer por chunks (no cargar todo)
+# -----------------------
+@st.cache_data(ttl=120)
+def get_file_columns(path):
+    try:
+        return pd.read_csv(path, nrows=0).columns.tolist()
+    except Exception:
+        return []
 
-# --- Función para calcular dominio Y ---
+@st.cache_data(ttl=120)
+def get_available_dates(path, time_col="time", chunksize=200_000):
+    cols = [time_col]
+    dates = set()
+    try:
+        for chunk in pd.read_csv(path, usecols=cols, parse_dates=[time_col],
+                                 chunksize=chunksize, low_memory=True):
+            if time_col in chunk.columns:
+                chunk = chunk.dropna(subset=[time_col])
+                dates.update(chunk[time_col].dt.date.unique())
+    except Exception:
+        # fallback simple read if chunking fails
+        try:
+            df = pd.read_csv(path, parse_dates=[time_col])
+            dates.update(df[time_col].dt.date.unique())
+        except Exception:
+            pass
+    return sorted(dates)
+
+@st.cache_data(ttl=120)
+def get_day_time_bounds(path, selected_date, time_col="time", chunksize=200_000):
+    """Devuelve (min_datetime, max_datetime) para el día dado, o (None,None) si no hay datos."""
+    min_dt = None
+    max_dt = None
+    date_obj = pd.to_datetime(selected_date).date()
+    cols = [time_col]
+    try:
+        for chunk in pd.read_csv(path, usecols=cols, parse_dates=[time_col],
+                                 chunksize=chunksize, low_memory=True):
+            if time_col not in chunk.columns:
+                continue
+            chunk = chunk.dropna(subset=[time_col])
+            mask = chunk[time_col].dt.date == date_obj
+            if not mask.any():
+                continue
+            day_chunk = chunk.loc[mask, time_col]
+            cur_min = day_chunk.min()
+            cur_max = day_chunk.max()
+            if min_dt is None or cur_min < min_dt:
+                min_dt = cur_min
+            if max_dt is None or cur_max > max_dt:
+                max_dt = cur_max
+    except Exception:
+        # fallback
+        try:
+            df = pd.read_csv(path, parse_dates=[time_col], low_memory=True)
+            df = df.dropna(subset=[time_col])
+            df_day = df[df[time_col].dt.date == date_obj]
+            if not df_day.empty:
+                min_dt = df_day[time_col].min()
+                max_dt = df_day[time_col].max()
+        except Exception:
+            pass
+    return min_dt, max_dt
+
+def load_window(path, start_dt, end_dt, time_col="time", chunksize=200_000):
+    """Lee por chunks y devuelve sólo las filas entre start_dt (incl) y end_dt (excl)."""
+    # descubrir columnas reales del archivo
+    all_cols = get_file_columns(path)
+    # aseguramos que 'time' esté y tomamos intersección de columnas deseadas
+    usecols = [c for c in ["time"] + DESIRED_COLS if c in all_cols]
+    if "time" not in usecols:
+        st.error("El archivo no tiene la columna 'time'. Revisa el CSV.")
+        return pd.DataFrame(columns=usecols)
+
+    pieces = []
+    try:
+        for chunk in pd.read_csv(path, usecols=usecols, parse_dates=["time"],
+                                 chunksize=chunksize, low_memory=True):
+            # filtrar por ventana
+            mask = (chunk["time"] >= start_dt) & (chunk["time"] < end_dt)
+            if mask.any():
+                pieces.append(chunk.loc[mask])
+    except Exception:
+        # fallback a leer todo (solo si chunk falla)
+        df = pd.read_csv(path, usecols=usecols, parse_dates=["time"])
+        pieces = [df[(df["time"] >= start_dt) & (df["time"] < end_dt)]]
+
+    if not pieces:
+        return pd.DataFrame(columns=usecols)
+
+    df_window = pd.concat(pieces, ignore_index=True)
+    df_window = df_window.sort_values("time").reset_index(drop=True)
+    return df_window
+
+# -----------------------
+# Helpers de gráfico
+# -----------------------
 def compute_y_domain(series):
     s = pd.to_numeric(series, errors="coerce").dropna()
     if s.empty:
         return None
     min_val, max_val = s.min(), s.max()
-    margin = max((max_val - min_val) * 0.005, 1)
+    margin = max((max_val - min_val) * 0.01, 0.01 * abs(max_val) if max_val != 0 else 1)
     return (math.floor(min_val - margin), math.ceil(max_val + margin))
 
-# --- Función para graficar ---
-def plot_line(df, y_cols, title="", y_label="Valor"):
+def plot_line(df, y_cols, title="", y_label="Valor", start_dt=None, end_dt=None):
     if df.empty:
         return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
+    # mantener solo columnas existentes
+    cols = ["time"] + [c for c in y_cols if c in df.columns]
+    if len(cols) <= 1:
+        return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
 
-    df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
+    df = df[cols].copy()
+    df_melted = df.melt("time", value_vars=[c for c in cols if c != "time"],
+                        var_name="variable", value_name="valor")
+    df_melted["valor"] = pd.to_numeric(df_melted["valor"], errors="coerce")
     df_melted = df_melted.dropna(subset=["time", "valor"])
     if df_melted.empty:
         return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
 
-    min_time = df["time"].min()
-    max_time = df["time"].max()
-
     y_domain = compute_y_domain(df_melted["valor"])
+    x_domain = None
+    if start_dt is not None and end_dt is not None:
+        x_domain = [start_dt, end_dt]
+
+    x_enc = alt.X("time:T",
+                  scale=alt.Scale(domain=x_domain) if x_domain else alt.Undefined,
+                  axis=alt.Axis(format="%H:%M", labelAngle=0, labelOverlap=True))
+    y_enc = alt.Y("valor:Q", title=y_label,
+                  scale=alt.Scale(domain=y_domain) if y_domain else alt.Undefined)
 
     chart = (
         alt.Chart(df_melted)
-        .mark_line(clip=True)
-        .encode(
-            x=alt.X("time:T", scale=alt.Scale(domain=[min_time, max_time]),
-                    axis=alt.Axis(format="%H:%M", labelAngle=0)),
-            y=alt.Y("valor:Q", title=y_label,
-                    scale=alt.Scale(domain=y_domain) if y_domain else alt.Undefined),
-            color="variable:N",
-        )
-        .properties(width=800, height=300, title=title)
-        .interactive()
+           .mark_line(clip=True)
+           .encode(x=x_enc, y=y_enc, color="variable:N")
+           .properties(width="container", height=280, title=title)
+           .interactive()
     )
     return chart
 
-# ==========================
-# 🔹 Filtro de día y hora
-# ==========================
-if not df.empty and "time" in df.columns:
-    df["date"] = df["time"].dt.date
-    available_dates = sorted(df["date"].dropna().unique())
+# -----------------------
+# UI: selector de día y ventana 3h
+# -----------------------
+if not st.sidebar.button("Recargar manualmente (limpia cache)"):
+    pass
 
-    # Selector de día
-    selected_date = st.date_input(
-        "📅 Selecciona el día:",
-        value=available_dates[-1],
-        min_value=min(available_dates),
-        max_value=max(available_dates)
-    )
+# obtener fechas disponibles (rápido porque lee sólo la columna time por chunks)
+available_dates = get_available_dates(CSV_FILE)
+if not available_dates:
+    st.warning("No se encontraron fechas en el CSV (columna 'time' vacía o archivo inaccesible).")
+    st.stop()
 
-    # Filtrar solo ese día
-    df_day = df[df["date"] == pd.to_datetime(selected_date).date()]
+# selector de fecha en sidebar para liberar espacio en la página principal
+selected_date = st.sidebar.date_input("📅 Selecciona día:", value=available_dates[-1],
+                                      min_value=available_dates[0], max_value=available_dates[-1])
 
-    if df_day.empty:
-        st.warning("⚠️ No hay datos para este día.")
-    else:
-        # Selector de hora para ventana de 3h
-        min_hour = df_day["time"].dt.hour.min()
-        max_hour = df_day["time"].dt.hour.max()
-        start_hour = st.slider("⏰ Selecciona hora inicial (3h por ventana):",
-                               min_value=int(min_hour), max_value=int(max_hour-1),
-                               value=int(max_hour)-3 if max_hour >= 3 else int(min_hour))
+# obtener límites de tiempo para ese día
+min_dt, max_dt = get_day_time_bounds(CSV_FILE, selected_date)
+if min_dt is None or max_dt is None:
+    st.warning("No hay datos para el día seleccionado.")
+    st.stop()
 
-        start_time = dt.datetime.combine(selected_date, dt.time(start_hour, 0))
-        end_time = start_time + dt.timedelta(hours=3)
+# convertir a horas enteras para slider (asegurar que haya espacio para 3h)
+min_hour = min_dt.hour
+max_hour = max_dt.hour
+# Si los datos llegan hasta 23:50, permitir start_hour hasta 20 por seguridad
+max_start_hour = max(0, max_hour - 2)  # para poder tener 3 horas completas (start + 3)
+if max_start_hour < min_hour:
+    max_start_hour = min_hour
 
-        # Filtrar rango horario
-        df_window = df_day[(df_day["time"] >= start_time) & (df_day["time"] < end_time)]
+start_hour = st.sidebar.slider("⏰ Hora inicial (ventana de 3 horas):",
+                               min_value=int(min_hour),
+                               max_value=int(max_start_hour),
+                               value=int(max_start_hour))
 
-        # Resamplear solo este rango
-        if not df_window.empty:
-            df_window = df_window.set_index("time").resample("1s").mean().reset_index()
+# opcional: minute slider para inicio más fino
+start_minute = st.sidebar.selectbox("Minuto inicio:", [0, 15, 30, 45], index=0)
 
-            st.success(f"Mostrando datos de {start_time.strftime('%H:%M')} a {end_time.strftime('%H:%M')}")
+start_dt = dt.datetime.combine(selected_date, dt.time(int(start_hour), int(start_minute)))
+end_dt = start_dt + dt.timedelta(hours=3)
 
-            # --- Métricas ---
-            latest = df_window.iloc[-1]
+st.sidebar.markdown(f"Mostrando ventana: **{start_dt.strftime('%Y-%m-%d %H:%M')}** → **{end_dt.strftime('%H:%M')}**")
 
-            col1, col2, col3, col4, col5 = st.columns(5)
-            col1.metric("🌡️ Temp", f"{latest['temperature']:.1f} °C" if not pd.isna(latest['temperature']) else "N/A")
-            col2.metric("💧 Humedad", f"{latest['humidity']:.1f} %" if not pd.isna(latest['humidity']) else "N/A")
-            col3.metric("⚠️ Anomalía", f"{latest['anomaly']:.2f}" if not pd.isna(latest['anomaly']) else "N/A")
-            col4.metric("🌫️ BVOC", f"{latest['bvoc']:.1f} ppb" if not pd.isna(latest['bvoc']) else "N/A")
-            col5.metric("🏭 IAQ", f"{latest['iaq']:.0f} ppm" if not pd.isna(latest['iaq']) else "N/A")
+# -----------------------
+# Cargar sólo la ventana y resamplear (después de filtrar)
+# -----------------------
+with st.spinner("Cargando datos (solo la ventana seleccionada)..."):
+    df_window = load_window(CSV_FILE, start_dt, end_dt)
 
-            st.divider()
+if df_window.empty:
+    st.warning("No hay datos en esa ventana de 3 horas.")
+    st.stop()
 
-            # --- Gráficos ---
-            st.subheader("📈 Aceleración (RMS)")
-            st.altair_chart(plot_line(df_window, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s²"),
-                            use_container_width=True)
+# resamplear SOLO la ventana para evitar explosión de filas (por ejemplo 1s)
+# si 'time' no es índice aún:
+df_window = df_window.set_index("time").resample("1s").mean().reset_index()
 
-            st.subheader("🌡️ Temperatura")
-            st.altair_chart(plot_line(df_window, ["temperature"], "Temperatura", y_label="°C"),
-                            use_container_width=True)
+# -----------------------
+# Mostrar métricas y gráficos
+# -----------------------
+st.markdown(f"### 📍 Datos para {selected_date} — {start_dt.strftime('%H:%M')}–{end_dt.strftime('%H:%M')}")
 
-            st.subheader("💧 Humedad")
-            st.altair_chart(plot_line(df_window, ["humidity"], "Humedad", y_label="% HR"),
-                            use_container_width=True)
+# Métricas
+latest = df_window.iloc[-1]
+def safe(latest_row, col, fmt=":.2f", unit=""):
+    if col in latest_row and not pd.isna(latest_row[col]):
+        return f"{float(latest_row[col]):{fmt}}{unit}"
+    return "N/A"
 
-            st.subheader("🌫️ BVOC")
-            st.altair_chart(plot_line(df_window, ["bvoc"], "BVOC", y_label="ppb"),
-                            use_container_width=True)
+c1, c2, c3, c4, c5 = st.columns(5)
+c1.metric("🌡️ Temp", safe(latest, "temperature", ":.1f", " °C"))
+c2.metric("💧 Humedad", safe(latest, "humidity", ":.1f", " %"))
+c3.metric("⚠️ Anomaly", safe(latest, "anomaly", ":.2f", ""))
+c4.metric("🌫️ BVOC", safe(latest, "bvoc", ":.1f", " ppb"))
+c5.metric("🏭 IAQ", safe(latest, "iaq", ":.0f", " ppm"))
 
-            st.subheader("🏭 IAQ")
-            st.altair_chart(plot_line(df_window, ["iaq"], "Calidad Aire", y_label="ppm"),
-                            use_container_width=True)
+st.divider()
 
-            st.subheader("⚠️ Anomalía de Vibración")
-            st.altair_chart(plot_line(df_window, ["anomaly"], "Anomaly Score", y_label="Score"),
-                            use_container_width=True)
-        else:
-            st.warning("⚠️ No hay datos en esta ventana de 3h.")
-else:
-    st.warning("⚠️ No se encontraron datos en el archivo CSV.")
+# Gráficas (cada una mostrará solo la ventana de 3h)
+st.subheader("📈 Aceleración (RMS)")
+st.altair_chart(plot_line(df_window, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", "m/s²",
+                          start_dt=start_dt, end_dt=end_dt), use_container_width=True)
+
+st.subheader("🌡️ Temperatura")
+st.altair_chart(plot_line(df_window, ["temperature"], "Temperatura", "°C",
+                          start_dt=start_dt, end_dt=end_dt), use_container_width=True)
+
+st.subheader("💧 Humedad")
+st.altair_chart(plot_line(df_window, ["humidity"], "Humedad", "% HR",
+                          start_dt=start_dt, end_dt=end_dt), use_container_width=True)
+
+st.subheader("🌫️ BVOC")
+st.altair_chart(plot_line(df_window, ["bvoc"], "BVOC", "ppb",
+                          start_dt=start_dt, end_dt=end_dt), use_container_width=True)
+
+st.subheader("🏭 IAQ")
+st.altair_chart(plot_line(df_window, ["iaq"], "Calidad Aire", "ppm",
+                          start_dt=start_dt, end_dt=end_dt), use_container_width=True)
+
+st.subheader("⚠️ Anomaly Score")
+st.altair_chart(plot_line(df_window, ["anomaly"], "Anomaly Score", "score",
