@@ -14,14 +14,16 @@ with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # ------------------- AUTOREFRESH -------------------
-st_autorefresh(interval=50000, limit=None, key="refresh_counter")  # refrescar cada 50s
+st_autorefresh(interval=30000, limit=None, key="refresh_counter")  # cada 30s
 
-# ------------------- CARGAR INFO DESDE GITHUB -------------------
-url = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/uplinks.csv"
+# ------------------- FUNCION DE CARGA -------------------
+def cargar_datos():
+    url = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/uplinks.csv"
+    df = pd.read_csv(url + f"?t={int(time.time())}")  # timestamp para evitar cache
+    df['time'] = pd.to_datetime(df['time'], errors='coerce')
+    return df
 
-# Agregamos timestamp para forzar descarga y evitar cache
-df = pd.read_csv(url + f"?t={int(time.time())}")
-df['time'] = pd.to_datetime(df['time'], errors='coerce')
+df = cargar_datos()
 
 # ------------------- BARRA DE SELECCIÓN -------------------
 st.sidebar.header('Dashboard - UTP')
@@ -46,7 +48,7 @@ Created by I2
 # ------------------- CUADRITOS KPI -------------------
 st.markdown('### Última Actualización')
 col1, col2, col3 = st.columns(3)
-latest = df.iloc[-1]  # último valor
+latest = df_sensor.iloc[-1]  # último valor del sensor seleccionado
 
 col1.metric("Temperatura", f"{latest['temperature']:.2f} °C")
 col2.metric("Humedad", f"{latest['humidity']:.2f} %")
@@ -54,7 +56,7 @@ col3.metric("Presión", f"{latest['pressure_hPa']:.0f} hPa")
 
 # ------------------- TABLA DE ÚLTIMOS 10 VALORES -------------------
 st.markdown("### Últimos 10 registros")
-df_table = df.drop(columns=["deviceName","battery_mV", "rssi","snr"], errors='ignore')
+df_table = df_sensor.drop(columns=["deviceName","battery_mV", "rssi","snr"], errors='ignore')
 st.dataframe(df_table.tail(10).iloc[::-1], use_container_width=True)
 
 # ------------------- GRAFICOS -------------------
@@ -88,4 +90,4 @@ with col2:
 
 # GRAFICO TEMP/HUMEDAD LINE CHART
 st.markdown('### Line chart')
-st.line_chart(df, x='time', y=plot_data, height=400)
+st.line_chart(df_sensor, x='time', y=plot_data, height=400)
