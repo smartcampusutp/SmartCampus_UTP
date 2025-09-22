@@ -43,7 +43,7 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     if df_melted.empty:
         return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line().encode()
 
-    min_time = df["time"].min()
+    min_time = df["time"].max() - dt.timedelta(hours=3)  # <-- solo 3h
     max_time = df["time"].max()
 
     y_domain = compute_y_domain(df_melted["valor"])
@@ -68,76 +68,90 @@ def plot_line(df, y_cols, title="", y_label="Valor"):
     )
     return chart
 
-# --- Filtrar últimas 4 horas ---
+
+# ==========================
+# 🔹 Filtro de día
+# ==========================
 if df is not None and not df.empty:
     if "time" in df.columns and df["time"].notna().any():
-        now = df["time"].max()
-        ventana = now - dt.timedelta(hours=4)
-        df = df[df["time"] >= ventana]  # <-- FILTRO AQUÍ
+        df["date"] = df["time"].dt.date
+        available_dates = sorted(df["date"].unique())
 
-        # Solo después de filtrar, hacemos resample
-        df = df.set_index("time").resample("200ms").mean().reset_index()
+        # Selector de día
+        selected_date = st.date_input("📅 Selecciona el día:", 
+                                      value=available_dates[-1],  # último día por defecto
+                                      min_value=min(available_dates),
+                                      max_value=max(available_dates))
 
-    st.markdown("## 📍 Valores en tiempo real")
-    latest = df.iloc[-1]
+        # Filtrar solo ese día
+        df = df[df["date"] == pd.to_datetime(selected_date).date()]
 
-    def safe_metric(latest_row, col_name, fmt):
-        try:
-            val = latest_row[col_name]
-            if pd.isna(val):
+        # Si quieres evitar sobrecarga, resamplea después de filtrar
+        if not df.empty:
+            df = df.set_index("time").resample("200ms").mean().reset_index()
+
+    # --- Panel de métricas y gráficos solo 3h ---
+    if not df.empty:
+        st.markdown("## 📍 Valores en tiempo real")
+        latest = df.iloc[-1]
+
+        def safe_metric(latest_row, col_name, fmt):
+            try:
+                val = latest_row[col_name]
+                if pd.isna(val):
+                    return "N/A"
+                return f"{float(val):{fmt}}"
+            except Exception:
                 return "N/A"
-            return f"{float(val):{fmt}}"
-        except Exception:
-            return "N/A"
 
-    # Métricas principales
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.metric("🌡️ Temperatura", f"{safe_metric(latest, 'temperature', '.1f')} °C")
-    with col2:
-        st.metric("💧 Humedad", f"{safe_metric(latest, 'humidity', '.1f')} %")
-    with col3:
-        st.metric("⚠️ Anomalía", f"{safe_metric(latest, 'anomaly', '.2f')}")
-    with col4:
-        st.metric("🌫️ BVOC", f"{safe_metric(latest, 'bvoc', '.1f')} ppb")
-    with col5:
-        st.metric("🏭 Calidad Aire (IAQ)", f"{safe_metric(latest, 'iaq', '.0f')} ppm")
-    
-    # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
-    col6, col7, col8 = st.columns(3)
-    with col6:
-        st.metric("📈 Aceleración X", f"{safe_metric(latest, 'accXRMS', '.2f')} m/s²")
-    with col7:
-        st.metric("📈 Aceleración Y", f"{safe_metric(latest, 'accYRMS', '.2f')} m/s²")
-    with col8:
-        st.metric("📈 Aceleración Z", f"{safe_metric(latest, 'accZRMS', '.2f')} m/s²")
+        # Métricas principales
+        col1, col2, col3, col4, col5 = st.columns(5)
+        with col1:
+            st.metric("🌡️ Temperatura", f"{safe_metric(latest, 'temperature', '.1f')} °C")
+        with col2:
+            st.metric("💧 Humedad", f"{safe_metric(latest, 'humidity', '.1f')} %")
+        with col3:
+            st.metric("⚠️ Anomalía", f"{safe_metric(latest, 'anomaly', '.2f')}")
+        with col4:
+            st.metric("🌫️ BVOC", f"{safe_metric(latest, 'bvoc', '.1f')} ppb")
+        with col5:
+            st.metric("🏭 Calidad Aire (IAQ)", f"{safe_metric(latest, 'iaq', '.0f')} ppm")
+        
+        # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
+        col6, col7, col8 = st.columns(3)
+        with col6:
+            st.metric("📈 Aceleración X", f"{safe_metric(latest, 'accXRMS', '.2f')} m/s²")
+        with col7:
+            st.metric("📈 Aceleración Y", f"{safe_metric(latest, 'accYRMS', '.2f')} m/s²")
+        with col8:
+            st.metric("📈 Aceleración Z", f"{safe_metric(latest, 'accZRMS', '.2f')} m/s²")
 
-    st.divider()
+        st.divider()
 
-    # --- Gráficos ---
-    st.subheader("📈 Aceleración (RMS)")
-    st.altair_chart(plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)"),
-                    use_container_width=True)
+        # --- Gráficos ---
+        st.subheader("📈 Aceleración (RMS)")
+        st.altair_chart(plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)"),
+                        use_container_width=True)
 
-    st.subheader("🌡️ Temperatura")
-    st.altair_chart(plot_line(df, ["temperature"], "Temperatura", y_label="°C"),
-                    use_container_width=True)
+        st.subheader("🌡️ Temperatura")
+        st.altair_chart(plot_line(df, ["temperature"], "Temperatura", y_label="°C"),
+                        use_container_width=True)
 
-    st.subheader("💧 Humedad")
-    st.altair_chart(plot_line(df, ["humidity"], "Humedad", y_label="% HR"),
-                    use_container_width=True)
+        st.subheader("💧 Humedad")
+        st.altair_chart(plot_line(df, ["humidity"], "Humedad", y_label="% HR"),
+                        use_container_width=True)
 
-    st.subheader("🌫️ Compuestos Orgánicos Volátiles")
-    st.altair_chart(plot_line(df, ["bvoc"], "BVOC", y_label="ppb"),
-                    use_container_width=True)
+        st.subheader("🌫️ Compuestos Orgánicos Volátiles")
+        st.altair_chart(plot_line(df, ["bvoc"], "BVOC", y_label="ppb"),
+                        use_container_width=True)
 
-    st.subheader("🏭 Índice de Calidad de Aire")
-    st.altair_chart(plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm"),
-                    use_container_width=True)
+        st.subheader("🏭 Índice de Calidad de Aire")
+        st.altair_chart(plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm"),
+                        use_container_width=True)
 
-    st.subheader("⚠️ Anomalía de Vibración")
-    st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
-                    use_container_width=True)
+        st.subheader("⚠️ Anomalía de Vibración")
+        st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
+                        use_container_width=True)
 
 else:
     st.warning("⚠️ No se encontraron datos en el archivo CSV.")
