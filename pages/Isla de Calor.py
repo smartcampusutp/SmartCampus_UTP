@@ -21,7 +21,7 @@ st_autorefresh(interval=50000, limit=None, key="refresh_counter")
 
 # ------------------- CARGAR DATOS DESDE GITHUB -------------------
 # Esta es la corrección principal: leer el CSV directamente desde la URL "raw".
-url_csv = 'https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/uplinks.csv'
+url_csv = 'https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/refs/heads/main/Data/uplinks.csv'
 try:
     df = pd.read_csv(url_csv)
     df['time'] = pd.to_datetime(df['time'], errors='coerce')
