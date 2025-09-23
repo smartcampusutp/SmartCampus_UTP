@@ -67,8 +67,8 @@ else:
 # ------------------- TABLA SIN AG-GRID -------------------
 st.markdown("### Últimos 10 registros")
 if not df.empty:
-df_table = df.drop(columns=["deviceName","battery_mV", "rssi","snr"])   # Eliminar columna
-st.dataframe(df_table.tail(10).iloc[::-1], use_container_width=True)    # Mostrar
+    df_table = df.drop(columns=["deviceName","battery_mV", "rssi","snr"])   # Eliminar columna
+    st.dataframe(df_table.tail(10).iloc[::-1], use_container_width=True)    # Mostrar
 else:
     st.info("Esperando datos...")
 
