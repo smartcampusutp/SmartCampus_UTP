@@ -40,16 +40,16 @@ def compute_y_domain(series):
 def plot_line(df, y_cols, title="", y_label="Valor"):
     if df.empty:
         return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
-    
+
     df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
     df_melted["valor"] = pd.to_numeric(df_melted["valor"], errors="coerce")
     df_melted = df_melted.dropna(subset=["time", "valor"])
-    
+
     if df_melted.empty:
         return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
 
-    # Ventana de 3 horas dinámicas
-    max_time = df["time"].max()
+    # --- Ventana de 3 horas ---
+    max_time = df_melted["time"].max()
     min_time = max_time - dt.timedelta(hours=3)
     df_melted = df_melted[df_melted["time"].between(min_time, max_time)]
 
@@ -84,8 +84,9 @@ if not df.empty:
     if df.empty:
         st.warning("⚠️ No hay datos para este día.")
     else:
-        # Resample después del filtro
-        df = df.set_index("time").resample("200ms").mean().reset_index()
+        # --- Resample solo si hay suficientes datos ---
+        if df["time"].nunique() > 1:
+            df = df.set_index("time").resample("200ms").mean().reset_index()
 
         st.markdown("## 📍 Valores en tiempo real")
         latest = df.iloc[-1]
