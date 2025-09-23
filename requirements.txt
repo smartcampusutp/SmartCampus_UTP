@@ -4,5 +4,3 @@ plost
 plotly
 streamlit-autorefresh
 numpy
-altair
-st_aggrid
