@@ -26,6 +26,7 @@ def load_data():
     return df
 
 df = load_data()
+df = df[df["deviceName"] == "NodoTest"]  # 🔹 Filtrar SOLO los datos del NodoTest
 
 # ------------------- BARRA DE SELECCIÓN -------------------
 st.sidebar.header('Dashboard - UTP')
