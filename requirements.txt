@@ -4,3 +4,4 @@ plost
 plotly
 streamlit-autorefresh
 numpy
+altair
