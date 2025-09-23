@@ -104,6 +104,7 @@ if not df.empty:
         ))
         st.plotly_chart(fig_hum, use_container_width=True)
 
+
 # ------------------- GRAFICO TEMP HUMEDAD -------------------
 st.markdown('### Line chart')
 if not df.empty:
