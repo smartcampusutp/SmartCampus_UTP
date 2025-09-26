@@ -9,28 +9,34 @@ st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 st.title("Dashboard - Isla de Calor")
 st.image("https://i.ibb.co/Q3RQT66R/SMT.png", caption=".")
 
-# ------------------- CSS -------------------
-try:
-    with open('style.css') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-except FileNotFoundError:
-    st.warning("⚠️ No se encontró style.css, se usará estilo por defecto.")
-
 # ------------------- AUTOREFRESH -------------------
 st_autorefresh(interval=50000, limit=None, key="refresh_counter")
 
 # ------------------- CARGA DE DATOS -------------------
 @st.cache_data
+@st.cache_data
 def load_data():
+    import os, time
     start = time.time()
-    # ⚡ TIP: Cambiar a parquet para más velocidad
-    try:
-        df = pd.read_parquet("Data/uplinks.parquet")
-    except FileNotFoundError:
-        df = pd.read_csv("Data/uplinks.csv")
+    
+    # Detecta siempre la raíz del proyecto (SMARTCAMPUS)
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_csv = os.path.join(base_dir, "Data", "uplinks.csv")
+    data_parquet = os.path.join(base_dir, "Data", "uplinks.parquet")
+
+    df = None
+    if os.path.exists(data_parquet):
+        df = pd.read_parquet(data_parquet)
+    elif os.path.exists(data_csv):
+        df = pd.read_csv(data_csv)
+    else:
+        st.error("❌ No se encontró ni uplinks.parquet ni uplinks.csv en la carpeta Data/")
+        return pd.DataFrame()  # retorna vacío para no romper el resto del código
+
     df['time'] = pd.to_datetime(df['time'], errors='coerce')
     st.write(f"⏱️ Tiempo de carga: {time.time()-start:.2f} s")
     return df
+
 
 df = load_data()
 
