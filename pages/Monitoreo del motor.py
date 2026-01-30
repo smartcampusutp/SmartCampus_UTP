@@ -1,152 +1,206 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
-import math
-import datetime as dt
+import plotly.graph_objects as go
+from streamlit_autorefresh import st_autorefresh
+import os
+import numpy as np
 
-# Ruta del archivo CSV
-CSV_FILE = "Data_udp/smartcampusudp.csv"
+# ================= CONFIGURACIÓN =================
+st.set_page_config(
+    page_title="Estado bomba agua helada",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-st.set_page_config(page_title="Dashboard Sensores", layout="wide")
-st.title("📊 Estado bomba agua helada cuarto de máquinas")
+# Umbrales ISO referenciales (aceleración RMS)
+ISO_ALERTA = 3.0    # m/s²
+ISO_CRITICO = 10.0  # m/s²
 
-# --- Cargar CSV con cache ---
-@st.cache_data(ttl=10)
-def load_csv(path):
-    df = pd.read_csv(path, engine="pyarrow")
-    if "time" in df.columns:
-        df["time"] = pd.to_datetime(df["time"], errors="coerce")
-        df = df.dropna(subset=["time"])
+st.title("Estado bomba de agua helada — SmartCampus UTP")
+st_autorefresh(interval=50000, limit=None, key="refresh")
+
+# ================= CONSTANTES FÍSICAS =================
+G = 9.81
+MG_TO_MS2 = G / 1000
+Z_GRAVITY_MG = 4000
+
+# ================= CARGA DE DATOS =================
+@st.cache_data(ttl=60)
+def load_daily_data(selected_date):
+    filename = f"smartcampusudp_{selected_date}.csv"
+    local_path = f"Data_udp/{filename}"
+    github_url = f"https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data_udp/{filename}"
+
+    try:
+        if os.path.exists(local_path):
+            df = pd.read_csv(local_path)
+        else:
+            df = pd.read_csv(github_url)
+    except Exception as e:
+        st.error(f"Error cargando datos: {e}")
+        return pd.DataFrame()
+
+    df["time"] = pd.to_datetime(df["time"], utc=True, errors="coerce")
+    df = df.dropna(subset=["time"])
+    df = df.sort_values("time").reset_index(drop=True)
     return df
 
-df = load_csv(CSV_FILE)
+# ================= SIDEBAR =================
+st.sidebar.header("Filtros")
 
-# --- Helper: calcular dominio Y ---
-def compute_y_domain(series):
-    s = pd.to_numeric(series, errors="coerce").dropna()
-    if s.empty:
-        return None
-    min_val, max_val = s.min(), s.max()
-    margin = max((max_val - min_val) * 0.005, 1)
-    rango_min = math.floor(min_val - margin)
-    rango_max = math.ceil(max_val + margin)
-    if rango_min == rango_max:
-        rango_max = rango_min + 1
-    if rango_min > rango_max:
-        rango_min, rango_max = rango_max - 1, rango_max
-    return (rango_min, rango_max)
+today = pd.Timestamp.now().date()
+selected_date = st.sidebar.date_input("Seleccionar día", today)
 
-# --- Función para graficar ---
-def plot_line(df, y_cols, title="", y_label="Valor"):
-    if df.empty:
-        return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
+df = load_daily_data(selected_date)
+if df.empty:
+    st.warning("No hay datos.")
+    st.stop()
 
-    df_melted = df.melt("time", value_vars=y_cols, var_name="variable", value_name="valor")
-    df_melted["valor"] = pd.to_numeric(df_melted["valor"], errors="coerce")
-    df_melted = df_melted.dropna(subset=["time", "valor"])
+sensors = sorted(df["deviceName"].dropna().unique())
+selected_sensor = st.sidebar.selectbox("Seleccionar sensor", sensors)
 
-    if df_melted.empty:
-        return alt.Chart(pd.DataFrame({"time": [], "valor": [], "variable": []})).mark_line()
+df_sensor = df[df["deviceName"] == selected_sensor].copy()
+if df_sensor.empty:
+    st.stop()
 
-    # --- Ventana de 3 horas ---
-    max_time = df_melted["time"].max()
-    min_time = max_time - dt.timedelta(hours=3)
-    df_melted = df_melted[df_melted["time"].between(min_time, max_time)]
+# -------- FILTRO POR HORA --------
+available_hours = sorted(df_sensor["time"].dt.hour.unique())
 
-    y_domain = compute_y_domain(df_melted["valor"])
+selected_hour = st.sidebar.selectbox(
+    "Seleccionar hora",
+    available_hours,
+    format_func=lambda h: f"{h:02d}:00 - {h:02d}:59"
+)
 
-    x_enc = alt.X("time:T",
-                  scale=alt.Scale(domain=[min_time, max_time]),
-                  axis=alt.Axis(format="%H:%M", labelAngle=0, labelOverlap=True))
+df_sensor = df_sensor[df_sensor["time"].dt.hour == selected_hour]
+if df_sensor.empty:
+    st.stop()
 
-    if y_domain:
-        y_enc = alt.Y("valor:Q", title=y_label,
-                      scale=alt.Scale(domain=y_domain),
-                      axis=alt.Axis(format="d"))
-    else:
-        y_enc = alt.Y("valor:Q", title=y_label, axis=alt.Axis(format="d"))
+# ================= PROCESAMIENTO DE ACELERACIONES =================
+df_sensor["accX_ms2"] = df_sensor["accXRMS"] * MG_TO_MS2
+df_sensor["accY_ms2"] = df_sensor["accYRMS"] * MG_TO_MS2
+df_sensor["accZ_ms2"] = (df_sensor["accZRMS"] - Z_GRAVITY_MG) * MG_TO_MS2
 
-    chart = (
-        alt.Chart(df_melted)
-        .mark_line(clip=True)
-        .encode(x=x_enc, y=y_enc, color="variable:N")
-        .properties(width=800, height=300, title=title)
-        .interactive()
-    )
-    return chart
+df_sensor["RMS_GLOBAL"] = np.sqrt(
+    df_sensor["accX_ms2"]**2 +
+    df_sensor["accY_ms2"]**2 +
+    df_sensor["accZ_ms2"]**2
+)
 
-# --- Selección de día ---
-if not df.empty:
-    dias_disponibles = sorted(df["time"].dt.date.unique(), reverse=True)
-    dia_seleccionado = st.selectbox("📅 Selecciona un día", dias_disponibles)
-    df = df[df["time"].dt.date == dia_seleccionado]
+# ================= ESTADO ISO (REFERENCIAL) =================
+df_sensor["estado_iso"] = "NORMAL"
+df_sensor.loc[df_sensor["RMS_GLOBAL"] > ISO_ALERTA, "estado_iso"] = "ALERTA"
+df_sensor.loc[df_sensor["RMS_GLOBAL"] > ISO_CRITICO, "estado_iso"] = "CRÍTICA"
 
-    if df.empty:
-        st.warning("⚠️ No hay datos para este día.")
-    else:
-        # --- Resample solo si hay suficientes datos ---
-        if df["time"].nunique() > 1:
-            df = df.set_index("time").resample("200ms").mean().reset_index()
+# ================= DETECCIÓN DE ANOMALÍAS (IA PURA) =================
+df_sensor["estado"] = "NORMAL"
 
-        st.markdown("## 📍 Valores en tiempo real")
-        latest = df.iloc[-1]
+# anomaly score:
+# < 0  → comportamiento normal
+# >= 0 → fuera del clúster normal
+# >= 1 → anomalía severa
+df_sensor.loc[df_sensor["anomaly"] >= 0, "estado"] = "ANOMALÍA"
+df_sensor.loc[df_sensor["anomaly"] >= 1.0, "estado"] = "CRÍTICA"
 
-        def safe_metric(latest_row, col_name, fmt):
-            try:
-                val = latest_row[col_name]
-                if pd.isna(val):
-                    return "N/A"
-                return f"{float(val):{fmt}}"
-            except Exception:
-                return "N/A"
+latest = df_sensor.iloc[-1]
 
-        # Métricas principales
-        col1, col2, col3, col4, col5 = st.columns(5)
-        with col1:
-            st.metric("🌡️ Temperatura", f"{safe_metric(latest, 'temperature', '.1f')} °C")
-        with col2:
-            st.metric("💧 Humedad", f"{safe_metric(latest, 'humidity', '.1f')} %")
-        with col3:
-            st.metric("⚠️ Anomalía", f"{safe_metric(latest, 'anomaly', '.2f')}")
-        with col4:
-            st.metric("🌫️ BVOC", f"{safe_metric(latest, 'bvoc', '.1f')} ppb")
-        with col5:
-            st.metric("🏭 Calidad Aire (IAQ)", f"{safe_metric(latest, 'iaq', '.0f')} ppm")
+# ================= FUNCIONES AUX =================
+def safe_metric(row, col, fmt, unit=""):
+    v = row.get(col)
+    if pd.isna(v):
+        return "N/A"
+    return f"{float(v):{fmt}} {unit}".strip()
 
-        # Segunda fila de métricas (Aceleración RMS en X, Y, Z)
-        col6, col7, col8 = st.columns(3)
-        with col6:
-            st.metric("📈 Aceleración X", f"{safe_metric(latest, 'accXRMS', '.2f')} m/s²")
-        with col7:
-            st.metric("📈 Aceleración Y", f"{safe_metric(latest, 'accYRMS', '.2f')} m/s²")
-        with col8:
-            st.metric("📈 Aceleración Z", f"{safe_metric(latest, 'accZRMS', '.2f')} m/s²")
+# ================= KPIs =================
+st.markdown(
+    f"## Sensor: *{selected_sensor}* — Fecha: *{selected_date}* — Hora: *{selected_hour:02d}:00*"
+)
 
-        st.divider()
+c1, c2, c3, c4, c5 = st.columns(5)
+c1.metric("🌡️ Temperatura", safe_metric(latest, "temperature", ".1f", "°C"))
+c2.metric("💧 Humedad", safe_metric(latest, "humidity", ".1f", "%"))
+c3.metric("⚠️ IA Anomaly", safe_metric(latest, "anomaly", ".2f"))
+c4.metric("🌫️ BVOC", safe_metric(latest, "bvoc", ".1f", "ppb"))
+c5.metric("🏭 IAQ", safe_metric(latest, "iaq", ".0f", "ppm"))
 
-        # --- Gráficos ---
-        st.subheader("📈 Aceleración (RMS)")
-        st.altair_chart(plot_line(df, ["accXRMS", "accYRMS", "accZRMS"], "Aceleración RMS", y_label="m/s² (RMS)"),
-                        use_container_width=True)
+c6, c7, c8 = st.columns(3)
+c6.metric("📈 Acc X", f"{latest['accX_ms2']:.3f} m/s²")
+c7.metric("📈 Acc Y", f"{latest['accY_ms2']:.3f} m/s²")
+c8.metric("📈 Acc Z", f"{latest['accZ_ms2']:.3f} m/s²")
 
-        st.subheader("🌡️ Temperatura")
-        st.altair_chart(plot_line(df, ["temperature"], "Temperatura", y_label="°C"),
-                        use_container_width=True)
+st.divider()
 
-        st.subheader("💧 Humedad")
-        st.altair_chart(plot_line(df, ["humidity"], "Humedad", y_label="% HR"),
-                        use_container_width=True)
-
-        st.subheader("🌫️ Compuestos Orgánicos Volátiles")
-        st.altair_chart(plot_line(df, ["bvoc"], "BVOC", y_label="ppb"),
-                        use_container_width=True)
-
-        st.subheader("🏭 Índice de Calidad de Aire")
-        st.altair_chart(plot_line(df, ["iaq"], "Índice de Calidad del Aire", y_label="ppm"),
-                        use_container_width=True)
-
-        st.subheader("⚠️ Anomalía de Vibración")
-        st.altair_chart(plot_line(df, ["anomaly"], "Anomaly Score", y_label="Score"),
-                        use_container_width=True)
+# ================= ESTADO GENERAL =================
+if latest["estado"] == "NORMAL":
+    st.success("🟢 OPERACIÓN NORMAL")
+elif latest["estado"] == "ANOMALÍA":
+    st.warning("🟠 ANOMALÍA DETECTADA (IA)")
 else:
-    st.warning("⚠️ No se encontraron datos en el archivo CSV.")
+    st.error("🔴 ANOMALÍA CRÍTICA")
+
+# ================= GRÁFICOS =================
+df_plot = df_sensor.tail(2000)
+
+def plot_line(y_cols, title, unit):
+    fig = go.Figure()
+    for c in y_cols:
+        fig.add_trace(go.Scattergl(
+            x=df_plot["time"],
+            y=df_plot[c],
+            mode="lines",
+            name=c
+        ))
+    fig.update_layout(
+        title=title,
+        yaxis_title=unit,
+        height=300
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+plot_line(["accX_ms2", "accY_ms2", "accZ_ms2"], "Aceleración RMS corregida", "m/s²")
+plot_line(["RMS_GLOBAL"], "RMS Global", "m/s²")
+plot_line(["anomaly"], "Anomaly Score (IA)", "score")
+plot_line(["temperature"], "Temperatura", "°C")
+plot_line(["humidity"], "Humedad", "%")
+plot_line(["bvoc"], "BVOC", "ppb")
+plot_line(["iaq"], "IAQ", "ppm")
+
+# ================= TABLAS =================
+with st.expander("Últimos datos"):
+    st.dataframe(df_sensor.tail(10))
+
+st.subheader("Registros con anomalía detectada por IA")
+
+df_ia_anom = df_sensor[df_sensor["anomaly"] >= 0].tail(20)
+
+if df_ia_anom.empty:
+    st.info("No se detectaron anomalías según IA.")
+else:
+    st.dataframe(
+        df_ia_anom[[
+            "time",
+            "anomaly",
+            "RMS_GLOBAL",
+            "temperature",
+            "humidity",
+            "estado_iso"
+        ]]
+    )
+
+st.subheader("Registros con vibración elevada (ISO 20816 – referencia)")
+
+df_iso = df_sensor[df_sensor["RMS_GLOBAL"] > ISO_ALERTA].tail(20)
+
+if df_iso.empty:
+    st.info("No se detectaron vibraciones fuera del rango normal.")
+else:
+    st.dataframe(
+        df_iso[[
+            "time",
+            "RMS_GLOBAL",
+            "accX_ms2",
+            "accY_ms2",
+            "accZ_ms2",
+            "estado_iso"
+        ]]
+    )
