@@ -18,14 +18,14 @@ st_autorefresh(interval=60000, limit=None, key="refresh")
 def get_available_csvs():
     api_url = (
         "https://api.github.com/repos/"
-        "smartcampusutp/SmartCampus_UTP/contents/Data/Ruido"
+        "smartcampusutp/SmartCampus_UTP/contents/Data/Monitoreo_de_Ruido"
     )
 
     response = requests.get(api_url)
     response.raise_for_status()
     files = response.json()
 
-    pattern = r"ruido_(\d{4}-\d{2}-\d{2})\.csv"
+    pattern = r"Monitoreo_de_Ruido_(\d{4}-\d{2}-\d{2})\.csv"
     data = []
 
     for f in files:
@@ -204,4 +204,3 @@ if not df_sensor.empty:
     )
             
     st.plotly_chart(fig_h, use_container_width=True)
-
