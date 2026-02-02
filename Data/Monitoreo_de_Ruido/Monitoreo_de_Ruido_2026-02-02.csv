@@ -1,2 +1,4 @@
 time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
 2026-02-02 00:00:14,Pasillo Administrativo,58.3,Background Noise,58.3,58.3,0.0,0.0,100.0,0.0,0.0,58.3,58.3,58.3,-115,-1.8
+2026-02-02 00:00:45,Salón - Extremo,71.2,Background Noise,53.7,51.9,60.3,51.7,90.3,9.1,0.6,40.1,40.9,52.7,-78,12.8
+2026-02-02 00:01:47,Pasillo de Laboratorio,53.0,Background Noise,46.2,46.2,0.0,0.0,100.0,0.0,0.0,40.1,40.6,50.7,-88,13.3
