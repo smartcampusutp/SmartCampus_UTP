@@ -1,2 +1,3 @@
 time,deviceName,temperature,humidity,pressure_hPa,battery_mV,battery_pct,rssi,snr
 2026-02-05 00:00:04,Panel,22.66,79.94,1005.0,1616.0,0,-45,14.3
+2026-02-05 00:01:04,Panel,22.65,80.02,1005.0,1618.0,0,-45,14.0
