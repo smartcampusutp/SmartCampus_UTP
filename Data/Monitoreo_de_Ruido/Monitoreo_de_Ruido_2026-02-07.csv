@@ -1,0 +1,2 @@
+time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
+2026-02-07 00:00:32,Pasillo de Salones,55.3,Background Noise,50.5,50.5,0.0,0.0,100.0,0.0,0.0,40.4,50.8,52.8,-90,13.8
