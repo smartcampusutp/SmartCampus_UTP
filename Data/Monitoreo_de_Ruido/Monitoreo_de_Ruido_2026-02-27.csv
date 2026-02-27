@@ -1,0 +1,2 @@
+time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
+2026-02-27 00:03:04,Main Lobby (E),59.4,Background Noise,45.0,44.4,49.5,0.0,93.8,6.2,0.0,40.1,40.5,50.3,-88,13.8
