@@ -1,0 +1,4 @@
+time,deviceName,temperature,humidity,pressure_hPa,battery_mV,battery_pct,rssi,snr
+2026-03-13 11:40:21,SignalTester,-311.36,45.36,29269.0,1111.0,1.2,-106,8.0
+2026-03-13 11:40:28,SignalTester,-311.36,45.36,29270.0,1113.0,0,-96,13.0
+2026-03-13 11:40:35,SignalTester,-311.36,45.36,29270.0,1113.0,0,-105,10.0
