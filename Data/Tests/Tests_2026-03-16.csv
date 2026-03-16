@@ -1,0 +1,2 @@
+time,deviceName,latitude,longitude,battery_V,hour,minute,second,gw1_name,gw1_rssi,gw1_snr,gw2_name,gw2_rssi,gw2_snr
+2026-03-16 08:18:46,Alcance,9.025054931640625,-79.5320053100586,3.704,13.0,31.0,7.0,GatewayELII,,,GatewayFacilidades,-90,13.8
