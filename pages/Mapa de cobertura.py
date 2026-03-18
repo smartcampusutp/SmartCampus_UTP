@@ -2,150 +2,209 @@ import streamlit as st
 import pandas as pd
 import folium
 import numpy as np
+import requests
 
-from folium.plugins import HeatMap, MeasureControl, MousePosition
+from folium.plugins import MeasureControl, MousePosition
 from streamlit_folium import st_folium
 
 st.set_page_config(layout="wide")
 
 # ======================
-# DATASET
+# CONFIG
 # ======================
 
-url="https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/Tests/Tests_2026-03-16.csv"
-df=pd.read_csv(url)
+REPO_API = "https://api.github.com/repos/smartcampusutp/SmartCampus_UTP/contents/Data/mapper"
+RAW_BASE = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/mapper/"
 
-# ======================
-# GATEWAYS
-# ======================
-
-gateways={
-
-"ELII":{
-"coords":[9.024833577337148,-79.53453540802003],
-"color":"red",
-"rssi_col":"gw1_rssi",
-"snr_col":"gw1_snr"
-},
-
-"Facilidades":{
-"coords":[9.023413708152264,-79.53220188617708],
-"color":"blue",
-"rssi_col":"gw2_rssi",
-"snr_col":"gw2_snr"
+coords_map = {
+    "GatewayELII":[9.024833577337148,-79.53453540802003],
+    "GatewayFacilidades":[9.023413708152264,-79.53220188617708],
 }
 
+# colores por gateway (🔥 clave)
+gateway_colors = {
+    "GatewayELII": "red",
+    "GatewayFacilidades": "blue",
 }
+
+# ======================
+# CACHE 1 HORA
+# ======================
+
+@st.cache_data(ttl=3600)
+def load_data():
+    try:
+        files = requests.get(REPO_API).json()
+    except:
+        return pd.DataFrame()
+
+    df_list = []
+
+    for f in files:
+        if f["name"].endswith(".csv"):
+            try:
+                df_temp = pd.read_csv(
+                    RAW_BASE + f["name"],
+                    engine="python",
+                    on_bad_lines="skip"
+                )
+                df_list.append(df_temp)
+            except:
+                continue
+
+    if len(df_list) == 0:
+        return pd.DataFrame()
+
+    return pd.concat(df_list, ignore_index=True)
+
+df = load_data()
+
+if df.empty:
+    st.error("No hay datos")
+    st.stop()
 
 # ======================
 # LIMPIEZA
 # ======================
 
-for g in gateways:
-    df[gateways[g]["rssi_col"]] = pd.to_numeric(df[gateways[g]["rssi_col"]], errors="coerce")
-    df[gateways[g]["snr_col"]] = pd.to_numeric(df[gateways[g]["snr_col"]], errors="coerce")
+df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
+df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
+df = df.dropna(subset=["latitude", "longitude"])
+
+# ======================
+# DETECTAR GATEWAYS
+# ======================
+
+gateways = {}
+
+gw_ids = set(col.split("_")[0] for col in df.columns if col.startswith("gw"))
+
+for gw_id in gw_ids:
+
+    name_col = f"{gw_id}_name"
+    rssi_col = f"{gw_id}_rssi"
+    snr_col  = f"{gw_id}_snr"
+
+    if rssi_col not in df.columns:
+        continue
+
+    names = df[name_col].dropna().astype(str).unique()
+    if len(names) == 0:
+        continue
+
+    gw_name = names[0]
+
+    if gw_name not in coords_map:
+        continue
+
+    gateways[gw_name] = {
+        "coords": coords_map[gw_name],
+        "rssi_col": rssi_col,
+        "snr_col": snr_col
+    }
+
+if len(gateways) == 0:
+    st.error("No se detectaron gateways válidos")
+    st.stop()
+
+# ======================
+# FILTROS
+# ======================
+
+st.sidebar.title("Filtros")
+
+rssi_min = st.sidebar.slider("RSSI mínimo", -120, -30, -100)
+dist_max = st.sidebar.slider("Distancia máxima (m)", 0, 1500, 800)
+
+if st.sidebar.button("🔄 Actualizar datos"):
+    st.cache_data.clear()
 
 # ======================
 # DISTANCIA
 # ======================
 
-def haversine(lat1,lon1,lat2,lon2):
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371000
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(lon2 - lon1)
 
-    R=6371000
+    a = np.sin(dphi/2)**2 + np.cos(phi1)*np.cos(phi2)*np.sin(dlambda/2)**2
+    c = 2*np.arctan2(np.sqrt(a), np.sqrt(1-a))
 
-    phi1=np.radians(lat1)
-    phi2=np.radians(lat2)
-
-    dphi=np.radians(lat2-lat1)
-    dlambda=np.radians(lon2-lon1)
-
-    a=np.sin(dphi/2)**2+np.cos(phi1)*np.cos(phi2)*np.sin(dlambda/2)**2
-    c=2*np.arctan2(np.sqrt(a),np.sqrt(1-a))
-
-    return R*c
+    return R * c
 
 # ======================
-# EXPANDIR RECEPCIONES
+# EXPANDIR
 # ======================
 
-records=[]
+records = []
 
-for _,row in df.iterrows():
+for _, row in df.iterrows():
+    for gw, g in gateways.items():
 
-    for gw,data in gateways.items():
-
-        rssi=row[data["rssi_col"]]
-        snr=row[data["snr_col"]]
+        rssi = pd.to_numeric(row.get(g["rssi_col"]), errors="coerce")
+        snr  = pd.to_numeric(row.get(g["snr_col"]), errors="coerce")
 
         if pd.notna(rssi):
 
-            d=haversine(
+            d = haversine(
                 row.latitude,
                 row.longitude,
-                data["coords"][0],
-                data["coords"][1]
+                g["coords"][0],
+                g["coords"][1]
             )
 
             records.append({
-
-                "lat":row.latitude,
-                "lon":row.longitude,
-                "gateway":gw,
-                "rssi":rssi,
-                "snr":snr,
-                "distance":d
-
+                "lat": row.latitude,
+                "lon": row.longitude,
+                "gateway": gw,
+                "rssi": rssi,
+                "snr": snr,
+                "distance": d
             })
 
-data=pd.DataFrame(records)
+data = pd.DataFrame(records)
+
+data = data[
+    (data["rssi"] >= rssi_min) &
+    (data["distance"] <= dist_max)
+]
 
 # ======================
-# SIDEBAR CONTROLES
+# CONTROLES
 # ======================
 
-st.sidebar.title("Capas del mapa")
+st.sidebar.title("Capas")
 
-show_all=st.sidebar.checkbox("Mostrar todo",True)
-
-controls={}
+controls = {}
 
 for gw in gateways:
-
-    with st.sidebar.expander(f"Gateway {gw}",True):
-
-        controls[gw]={
-
-        "nodes":st.checkbox("Nodos",show_all,key=f"{gw}nodes"),
-        "links":st.checkbox("Links",show_all,key=f"{gw}links"),
-        "rings":st.checkbox("Rings",show_all,key=f"{gw}rings"),
-        "heatmap":st.checkbox("RSSI Heatmap",False,key=f"{gw}heat")
-
+    with st.sidebar.expander(f"{gw}", True):
+        controls[gw] = {
+            "points": st.checkbox("Points", True, key=f"{gw}_p"),
+            "links": st.checkbox("Links", False, key=f"{gw}_l"),
+            "rings": st.checkbox("Rings", False, key=f"{gw}_r"),
         }
 
 # ======================
-# MAPA (MEJOR ZOOM)
+# MAPA (ESTILO ORIGINAL)
 # ======================
 
-m=folium.Map(
-location=[df.latitude.mean(),df.longitude.mean()],
-zoom_start=18,
-max_zoom=22,
-tiles=None
+m = folium.Map(
+    location=[df.latitude.mean(), df.longitude.mean()],
+    zoom_start=18,
+    max_zoom=22,
+    tiles=None
 )
 
-# ======================
-# CAPAS DE MAPA
-# ======================
+folium.TileLayer("cartodbpositron", name="Mapa").add_to(m)
 
 folium.TileLayer(
-"cartodbpositron",
-name="Mapa"
-).add_to(m)
-
-folium.TileLayer(
-tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-attr="Google",
-name="Satellite"
+    tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+    attr="Google",
+    name="Satellite"
 ).add_to(m)
 
 folium.LayerControl().add_to(m)
@@ -154,115 +213,88 @@ folium.LayerControl().add_to(m)
 # GATEWAYS
 # ======================
 
-for gw,data_gw in gateways.items():
+for gw, g in gateways.items():
+    color = gateway_colors.get(gw, "gray")
 
     folium.Marker(
-        data_gw["coords"],
-        icon=folium.Icon(color=data_gw["color"],icon="signal"),
-        popup=f"Gateway {gw}"
+        g["coords"],
+        icon=folium.Icon(color=color, icon="signal"),
+        popup=gw
     ).add_to(m)
 
 # ======================
 # RINGS
 # ======================
 
-rings=[150,300,600,1000]
+rings = [150, 300, 600, 1000]
 
-for gw,data_gw in gateways.items():
-
+for gw, g in gateways.items():
     if controls[gw]["rings"]:
+        color = gateway_colors.get(gw, "gray")
 
         for r in rings:
-
             folium.Circle(
-                data_gw["coords"],
+                g["coords"],
                 radius=r,
-                color=data_gw["color"],
-                weight=1,
+                color=color,
+                weight=1.5,
                 fill=False
             ).add_to(m)
 
 # ======================
-# NODOS Y LINKS
+# POINTS + LINKS
 # ======================
 
-heat_layers={}
+for _, row in data.iterrows():
 
-for gw in gateways:
-    heat_layers[gw]=[]
+    gw = row["gateway"]
+    rssi = row["rssi"]
 
-for _,row in data.iterrows():
+    # color por RSSI (points)
+    if rssi > -85:
+        point_color = "green"
+    elif rssi > -100:
+        point_color = "orange"
+    else:
+        point_color = "red"
 
-    gw=row["gateway"]
+    # color por gateway (links)
+    line_color = gateway_colors.get(gw, "gray")
 
-    if controls[gw]["nodes"]:
-
-        rssi=row["rssi"]
-
-        if rssi>-85:
-            color="green"
-        elif rssi>-100:
-            color="orange"
-        else:
-            color="red"
-
+    if controls[gw]["points"]:
         folium.CircleMarker(
-        [row["lat"],row["lon"]],
-        radius=4+((rssi+120)/8),
-        color=color,
-        fill=True,
-        fill_opacity=0.9,
-        popup=f"""
-        Gateway: {gw}<br>
-        RSSI: {rssi} dBm<br>
-        SNR: {row['snr']} dB<br>
-        Distance: {round(row['distance'],1)} m
-        """
+            [row["lat"], row["lon"]],
+            radius=4 + ((rssi + 120) / 8),
+            color=point_color,
+            fill=True,
+            fill_opacity=0.9,
+            popup=f"""
+            Gateway: {gw}<br>
+            RSSI: {rssi}<br>
+            SNR: {row['snr']}<br>
+            Dist: {round(row['distance'],1)} m
+            """
         ).add_to(m)
 
     if controls[gw]["links"]:
-
         folium.PolyLine(
-        [
-        [row["lat"],row["lon"]],
-        gateways[gw]["coords"]
-        ],
-        color=gateways[gw]["color"],
-        weight=0.8,
-        opacity=0.5
-        ).add_to(m)
-
-    heat_layers[gw].append([
-        row["lat"],
-        row["lon"],
-        (row["rssi"]+120)/60
-    ])
-
-# ======================
-# HEATMAP
-# ======================
-
-for gw in gateways:
-
-    if controls[gw]["heatmap"]:
-
-        HeatMap(
-        heat_layers[gw],
-        radius=25,
-        blur=20
+            [[row["lat"], row["lon"]], gateways[gw]["coords"]],
+            color=line_color,
+            weight=2.5,   # 🔥 más grueso
+            opacity=0.7
         ).add_to(m)
 
 # ======================
-# CONTROLES
+# CONTROLES EXTRA
 # ======================
 
 MeasureControl().add_to(m)
 MousePosition().add_to(m)
 
 # ======================
-# MAPA
+# UI
 # ======================
 
-st.title("LoRaWAN Coverage Map")
+st.title("LoRaWAN Map")
 
-st_folium(m,width=1400,height=750)
+st_folium(m, width=1400, height=750)
