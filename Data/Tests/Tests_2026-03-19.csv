@@ -1,0 +1,2 @@
+time,deviceName,meterSerialNumber_tag,totalFordwardFlow,instantFlow,Vbat,time_meter_unix,time_meter_str,rssi,snr
+2026-03-19 00:14:46,MedidorAgua,33430245,37.0,0.0,3.66,1773897300000.0,2026-03-19 00:15,-111,3.8
