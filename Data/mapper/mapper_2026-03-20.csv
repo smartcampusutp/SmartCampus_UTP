@@ -222,3 +222,4 @@ time,deviceName,latitude,longitude,battery_V,hour,minute,second,gw1_name,gw1_rss
 2026-03-20 19:51:54,Alcance,9.027570724487305,-79.52245330810547,3.925,1.0,6.0,7.0,GatewayELII,,,GatewayFacilidades,-106,7.3,GatewayTTN,,,GatewayTTN2,,
 2026-03-20 19:52:34,Alcance,9.027475357055664,-79.522705078125,3.915,1.0,6.0,47.0,GatewayELII,,,GatewayFacilidades,-106,9.0,GatewayTTN,,,GatewayTTN2,,
 2026-03-20 19:53:23,Alcance,9.027559280395508,-79.52245330810547,3.925,1.0,7.0,36.0,GatewayELII,,,GatewayFacilidades,-107,7.8,GatewayTTN,,,GatewayTTN2,,
+2026-03-20 19:54:02,Alcance,9.027400016784668,-79.5230484008789,3.925,1.0,8.0,15.0,GatewayELII,,,GatewayFacilidades,-107,7.8,GatewayTTN,,,GatewayTTN2,,
