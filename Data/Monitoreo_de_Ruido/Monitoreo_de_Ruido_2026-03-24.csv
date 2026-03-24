@@ -1,0 +1,2 @@
+time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
+2026-03-24 00:00:36,Salón - Uma (E),69.0,Background Noise,62.4,62.4,62.5,0.0,94.6,5.4,0.0,58.2,61.7,65.1,-107,8.5
