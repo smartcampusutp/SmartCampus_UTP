@@ -1249,3 +1249,5 @@ time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People
 2026-03-26 14:58:34,Pasillo de Salones (E),79.2,People,68.2,65.5,68.6,68.8,17.2,82.7,0.2,62.4,66.5,71.4,-79,13.8
 2026-03-26 14:58:47,Main Lobby (E),87.4,People,74.1,70.7,74.2,0.0,3.9,96.1,0.0,67.4,71.8,77.3,-113,4.5
 2026-03-26 14:59:35,Pasillo Administrativo (E),80.9,People,66.1,64.3,67.8,62.7,57.2,42.5,0.3,57.6,63.1,68.9,-100,12.5
+2026-03-26 14:59:58,Pasillo de Laboratorio - Ala Inferior (E),81.2,Background Noise,69.5,69.3,69.7,66.3,37.8,62.1,0.1,66.9,69.2,71.3,-102,9.2
+2026-03-26 15:00:53,Pasillo de Laboratorio (E),83.7,People,71.6,67.5,71.8,66.9,5.9,93.5,0.6,64.8,69.6,74.9,-106,8.3
