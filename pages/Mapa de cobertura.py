@@ -19,16 +19,17 @@ RAW_BASE = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/mai
 coords_map = {
     "GatewayELII":[9.024833577337148,-79.53453540802003],
     "GatewayFacilidades":[9.023413708152264,-79.53220188617708],
+    "GatewayTTN2":[9.02451, -79.53423],
 }
 
-# colores por gateway (🔥 clave)
 gateway_colors = {
     "GatewayELII": "red",
     "GatewayFacilidades": "blue",
+    "GatewayTTN2": "green",
 }
 
 # ======================
-# CACHE 1 HORA
+# CACHE
 # ======================
 
 @st.cache_data(ttl=3600)
@@ -69,7 +70,54 @@ if df.empty:
 
 df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
 df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
-df = df.dropna(subset=["latitude", "longitude"])
+
+# convertir fecha
+df["time"] = pd.to_datetime(df["time"], errors="coerce")
+
+df = df.dropna(subset=["latitude", "longitude", "time"])
+
+# ======================
+# FILTRO POR DIA
+# ======================
+
+st.sidebar.title("Filtros")
+
+min_date = df["time"].dt.date.min()
+max_date = df["time"].dt.date.max()
+
+date_range = st.sidebar.date_input(
+    "Rango de fechas",
+    value=(min_date, max_date),
+    min_value=min_date,
+    max_value=max_date
+)
+
+# validar selección
+if isinstance(date_range, tuple) and len(date_range) == 2:
+    start_date, end_date = date_range
+
+    df = df[
+        (df["time"].dt.date >= start_date) &
+        (df["time"].dt.date <= end_date)
+    ]
+else:
+    st.warning("Selecciona un rango válido de fechas")
+
+# ======================
+# DISTANCIA
+# ======================
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371000
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(lon2 - lon1)
+
+    a = np.sin(dphi/2)**2 + np.cos(phi1)*np.cos(phi2)*np.sin(dlambda/2)**2
+    c = 2*np.arctan2(np.sqrt(a), np.sqrt(1-a))
+
+    return R * c
 
 # ======================
 # DETECTAR GATEWAYS
@@ -108,35 +156,7 @@ if len(gateways) == 0:
     st.stop()
 
 # ======================
-# FILTROS
-# ======================
-
-st.sidebar.title("Filtros")
-
-rssi_min = st.sidebar.slider("RSSI mínimo", -120, -30, -100)
-dist_max = st.sidebar.slider("Distancia máxima (m)", 0, 1500, 800)
-
-if st.sidebar.button("🔄 Actualizar datos"):
-    st.cache_data.clear()
-
-# ======================
-# DISTANCIA
-# ======================
-
-def haversine(lat1, lon1, lat2, lon2):
-    R = 6371000
-    phi1 = np.radians(lat1)
-    phi2 = np.radians(lat2)
-    dphi = np.radians(lat2 - lat1)
-    dlambda = np.radians(lon2 - lon1)
-
-    a = np.sin(dphi/2)**2 + np.cos(phi1)*np.cos(phi2)*np.sin(dlambda/2)**2
-    c = 2*np.arctan2(np.sqrt(a), np.sqrt(1-a))
-
-    return R * c
-
-# ======================
-# EXPANDIR
+# EXPANDIR DATOS
 # ======================
 
 records = []
@@ -167,16 +187,21 @@ for _, row in df.iterrows():
 
 data = pd.DataFrame(records)
 
-data = data[
-    (data["rssi"] >= rssi_min) &
-    (data["distance"] <= dist_max)
-]
+# ======================
+# FILTRO DISTANCIA (SUAVE)
+# ======================
+
+dist_max = st.sidebar.slider("Distancia máxima (m)", 500, 5000, 2000)
+
+data = data[data["distance"] <= dist_max]
 
 # ======================
 # CONTROLES
 # ======================
 
 st.sidebar.title("Capas")
+
+show_path = st.sidebar.checkbox("Trayectoria completa", True)
 
 controls = {}
 
@@ -189,17 +214,17 @@ for gw in gateways:
         }
 
 # ======================
-# MAPA (ESTILO ORIGINAL)
+# MAPA
 # ======================
 
 m = folium.Map(
     location=[df.latitude.mean(), df.longitude.mean()],
-    zoom_start=18,
+    zoom_start=16,
     max_zoom=22,
     tiles=None
 )
 
-folium.TileLayer("cartodbpositron", name="Mapa").add_to(m)
+folium.TileLayer("cartodbpositron").add_to(m)
 
 folium.TileLayer(
     tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
@@ -208,6 +233,20 @@ folium.TileLayer(
 ).add_to(m)
 
 folium.LayerControl().add_to(m)
+
+# ======================
+# TRAYECTORIA BASE
+# ======================
+
+if show_path:
+    for _, row in df.iterrows():
+        folium.CircleMarker(
+            [row["latitude"], row["longitude"]],
+            radius=2,
+            color="gray",
+            fill=True,
+            fill_opacity=0.4
+        ).add_to(m)
 
 # ======================
 # GATEWAYS
@@ -223,25 +262,6 @@ for gw, g in gateways.items():
     ).add_to(m)
 
 # ======================
-# RINGS
-# ======================
-
-rings = [150, 300, 600, 1000]
-
-for gw, g in gateways.items():
-    if controls[gw]["rings"]:
-        color = gateway_colors.get(gw, "gray")
-
-        for r in rings:
-            folium.Circle(
-                g["coords"],
-                radius=r,
-                color=color,
-                weight=1.5,
-                fill=False
-            ).add_to(m)
-
-# ======================
 # POINTS + LINKS
 # ======================
 
@@ -250,7 +270,7 @@ for _, row in data.iterrows():
     gw = row["gateway"]
     rssi = row["rssi"]
 
-    # color por RSSI (points)
+    # color por señal
     if rssi > -85:
         point_color = "green"
     elif rssi > -100:
@@ -258,7 +278,6 @@ for _, row in data.iterrows():
     else:
         point_color = "red"
 
-    # color por gateway (links)
     line_color = gateway_colors.get(gw, "gray")
 
     if controls[gw]["points"]:
@@ -280,12 +299,12 @@ for _, row in data.iterrows():
         folium.PolyLine(
             [[row["lat"], row["lon"]], gateways[gw]["coords"]],
             color=line_color,
-            weight=2.5,   # 🔥 más grueso
+            weight=3,
             opacity=0.7
         ).add_to(m)
 
 # ======================
-# CONTROLES EXTRA
+# EXTRA
 # ======================
 
 MeasureControl().add_to(m)
@@ -295,6 +314,6 @@ MousePosition().add_to(m)
 # UI
 # ======================
 
-st.title("LoRaWAN Map")
+st.title("LoRaWAN Coverage Map")
 
 st_folium(m, width=1400, height=750)
