@@ -1,0 +1,3 @@
+time,deviceName,latitude,longitude,battery_V,hour,minute,second,gw1_name,gw1_rssi,gw1_snr,gw2_name,gw2_rssi,gw2_snr,gw3_name,gw3_rssi,gw3_snr,gw4_name,gw4_rssi,gw4_snr
+2026-03-30 14:21:33,Medidor_10,0.0,0.0,0.0,,,,GatewayELII,,,GatewayFacilidades,,,GatewayTTN,,,GatewayTTN2,-108,6.2
+2026-03-30 14:21:36,Medidor_10,5.490521974516796e-28,2.369435114369254e-38,10.118,35.0,1.0,50.0,GatewayELII,,,GatewayFacilidades,-114,-0.8,GatewayTTN,,,GatewayTTN2,,
