@@ -7,3 +7,4 @@ time,deviceName,meterSerialNumber_tag,totalFordwardFlow,instantFlow,Vbat,time_me
 2026-04-01 18:04:09,mt-08-b-33430243,33430243,0.44,0.0,3.54,1774954680000.0,2026-03-31 10:58:00,-93,13.5
 2026-04-01 18:05:43,mt-08-b-33430229,0.0,0.0,0.0,,,,GatewayELII,-96,8.2,GatewayFacilidades,,,GatewayEdificio3,,,,,
 2026-04-01 18:05:45,mt-08-b-33430229,-5.490521974516796e-28,2.369480796699191e-38,0.579,35.0,1.0,51.0,GatewayELII,,,GatewayFacilidades,-102,10.8,GatewayEdificio3,,,,,
+2026-04-01 18:06:11,mt-08-b-33430256,33430256,0.037,0.0,3.5,1774933860000.0,2026-03-31 05:11:00,-107,6.2
