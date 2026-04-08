@@ -1,0 +1,2 @@
+time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
+2026-04-08 00:03:09,Pasillo Administrativo (E),89.6,Background Noise,59.0,59.0,0.0,0.0,100.0,0.0,0.0,40.0,40.0,40.9,-102,11.5
