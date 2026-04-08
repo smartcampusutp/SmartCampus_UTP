@@ -17,15 +17,15 @@ REPO_API = "https://api.github.com/repos/smartcampusutp/SmartCampus_UTP/contents
 RAW_BASE = "https://raw.githubusercontent.com/smartcampusutp/SmartCampus_UTP/main/Data/mapper/"
 
 coords_map = {
-    "GatewayELII":[9.024833577337148,-79.53453540802003],
+    "GatewayELII":[9.02451, -79.53423],
     "GatewayFacilidades":[9.023413708152264,-79.53220188617708],
-    "GatewayTTN2":[9.02451, -79.53423],
+    "GatewaySistemas":[9.02196, -79.53221],
 }
 
 gateway_colors = {
     "GatewayELII": "red",
     "GatewayFacilidades": "blue",
-    "GatewayTTN2": "green",
+    "GatewaySistemas": "green",
 }
 
 # ======================
