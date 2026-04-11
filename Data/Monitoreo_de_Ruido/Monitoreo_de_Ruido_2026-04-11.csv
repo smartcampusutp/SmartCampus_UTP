@@ -1,2 +1,3 @@
 time,deviceName,Lmax_dB,Lmax_class,LAeq1min_dB,LAeq_Background Noise,LAeq_People,LAeq_Vehicle,pct_Background Noise,pct_People,pct_Vehicle,P10_dB,P50_dB,P90_dB,rssi,snr
 2026-04-11 00:00:03,Pasillo de Laboratorio - Ala Superior (E),62.3,Background Noise,54.3,54.3,0.0,0.0,100.0,0.0,0.0,47.4,52.9,57.7,-103,10.5
+2026-04-11 00:00:18,Pasillo de Laboratorio (E),65.1,People,59.7,0.0,59.7,0.0,0.0,100.0,0.0,56.6,59.3,61.7,-107,8.3
