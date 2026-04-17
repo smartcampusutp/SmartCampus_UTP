@@ -262,3 +262,4 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-04-17 13:54:21,Test_ruido_bien,0.0,silencio,0.0,0.0,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-84,9.5
 2026-04-17 13:54:51,Test_ruido_bien,0.0,silencio,0.0,0.0,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-91,9.5
 2026-04-17 13:55:21,Test_ruido_bien,0.0,silencio,0.0,0.0,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-107,8.0
+2026-04-17 13:56:19,Test_ruido_bien,0.0,silencio,0.0,0.0,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-112,2.5
