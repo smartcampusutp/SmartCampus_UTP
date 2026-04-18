@@ -1,3 +1,5 @@
 time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
 2026-04-18 15:52:55,Salón - Uma (C),29.353,silencio,0.0,30.963,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,30.902,29.292,28.001,-92,13.5
 2026-04-18 15:53:37,Salón - Extremo (E),20.251,silencio,0.0,21.923,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.947,20.057,18.203,-75,11.3
+2026-04-18 15:57:54,Salón - Uma (E),44.932,silencio,0.0,45.458,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,45.35,45.011,43.744,-107,-1.5
+2026-04-18 15:57:55,Salón - Uma (C),30.267,silencio,0.0,32.488,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,31.87,30.543,28.47,-95,13.3
