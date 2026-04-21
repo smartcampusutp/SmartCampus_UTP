@@ -169,3 +169,6 @@ time,deviceName,latitude,longitude,battery_V,hour,minute,second,gw1_name,gw1_rss
 2026-04-21 16:00:33,Alcance,,,,,,,,,,4,,,-35.0,10.8,GatewayELII,-67,9.8,GatewayFacilidades,-96,10.8,GatewayEdificio3,-97,8.5,GatewayOficina,-35,9.5
 2026-04-21 16:01:03,Alcance,,,,,,,,,,3,,,-37.0,12.0,GatewayELII,,,GatewayFacilidades,-99,12.0,GatewayEdificio3,-105,8.5,GatewayOficina,-37,10.2
 2026-04-21 16:01:33,Alcance,,,,,,,,,,4,,,-36.0,12.3,GatewayELII,-78,8.8,GatewayFacilidades,-100,12.3,GatewayEdificio3,-89,8.5,GatewayOficina,-36,9.0
+2026-04-21 16:02:03,Alcance,,,,,,,,,,4,,,-36.0,13.0,GatewayELII,-78,10.2,GatewayFacilidades,-97,13.0,GatewayEdificio3,-101,10.0,GatewayOficina,-36,10.0
+2026-04-21 16:02:31,Alcance,,,,,,,,,,3,,,-36.0,9.5,GatewayELII,-71,9.5,GatewayFacilidades,,,GatewayEdificio3,-99,-1.0,GatewayOficina,-36,9.2
+2026-04-21 16:02:32,Alcance,,,,,,,,,,4,,,-36.0,10.8,GatewayELII,-76,9.0,GatewayFacilidades,-104,10.8,GatewayEdificio3,-97,8.2,GatewayOficina,-36,9.0
