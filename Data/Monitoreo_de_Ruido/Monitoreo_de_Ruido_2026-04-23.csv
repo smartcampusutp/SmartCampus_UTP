@@ -352,3 +352,5 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-04-23 03:14:29,Pasillo de Laboratorio - Ala Superior (E),12.928,silencio,0.0,13.679,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.577,12.951,12.431,-97,12.2
 2026-04-23 03:15:06,Pasillo de Laboratorio - Ala Inferior (C),17.338,silencio,0.0,20.253,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.201,16.393,15.818,-115,-2.3
 2026-04-23 03:16:10,Pasillo de Salones (C),34.16,silencio,0.0,35.177,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,35.391,34.457,32.487,-90,12.2
+2026-04-23 03:17:00,Pasillo Administrativo (E),19.225,silencio,0.0,19.956,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.049,19.437,18.039,-90,14.0
+2026-04-23 03:18:00,Salón - Uma (C),30.531,silencio,0.0,31.765,silencio,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,31.694,30.643,29.263,-94,12.0
