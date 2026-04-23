@@ -1,2 +1,4 @@
 time,deviceName,latitude,longitude,altitude_m,hdop,sats,battery_V,hour,minute,second,gw_count,min_distance_m,max_distance_m,max_rssi,max_snr,gw1_name,gw1_rssi,gw1_snr,gw2_name,gw2_rssi,gw2_snr,gw3_name,gw3_rssi,gw3_snr,gw4_name,gw4_rssi,gw4_snr
 2026-04-23 07:35:01,Alcance,9.027310371398926,-79.5224838256836,162.0,0.6,6.0,3.935,12.0,35.0,0.0,2,1151.8,1326.2,-110.0,5.8,GatewayELII,-115,-2.2,GatewayFacilidades,-110,5.8,GatewayEdificio3,,,GatewayOficina,,
+2026-04-23 07:35:32,Alcance,9.02730941772461,-79.5224838256836,162.0,0.2,6.0,3.915,12.0,35.0,32.0,2,1151.8,1326.2,-101.0,7.3,GatewayELII,-101,2.0,GatewayFacilidades,-108,7.3,GatewayEdificio3,,,GatewayOficina,,
+2026-04-23 07:36:02,Alcance,9.027327537536621,-79.52252197265625,161.0,0.2,6.0,3.925,12.0,36.0,2.0,1,1148.7,1148.7,-112.0,3.5,GatewayELII,,,GatewayFacilidades,-112,3.5,GatewayEdificio3,,,GatewayOficina,,
