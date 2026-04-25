@@ -1013,3 +1013,5 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-04-25 06:04:15,Pasillo Salones Civil,35.56,Silence,0.0,36.449,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,36.299,35.612,34.525,-84,12.0
 2026-04-25 06:04:32,Laboratorios Eléctrica Superior,12.892,Silence,0.0,13.545,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.634,12.784,12.343,-88,14.5
 2026-04-25 06:05:35,Laboratorios Civil Superior,31.932,Silence,0.0,32.992,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,32.859,31.71,30.888,-103,11.0
+2026-04-25 06:06:26,Laboratorios Civil Central,51.85,Group 1 (Common),98.698,53.27,Group 1 (Common),51.895,0.0,0.0,0.0,0.0,98.698,0.0,0.347,0.0,0.911,53.51,52.067,48.881,-97,12.8
+2026-04-25 06:06:26,Pasillo Decanato Civil,20.466,Silence,0.0,21.555,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.339,20.536,19.388,-95,13.5
