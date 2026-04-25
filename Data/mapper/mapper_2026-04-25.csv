@@ -111,3 +111,4 @@ time,deviceName,latitude,longitude,altitude_m,hdop,sats,battery_V,hour,minute,se
 2026-04-25 13:43:59,Alcance,9.016291618347168,-79.53533935546875,45.0,0.1,9.0,3.675,18.0,43.0,58.0,2,718.4,922.7,-107.0,7.8,GatewayELII,-107,7.2,GatewayFacilidades,,,GatewayEdificio3,-107,7.8,GatewayOficina,,
 2026-04-25 13:44:59,Alcance,9.013033866882324,-79.53494262695312,53.0,0.1,8.0,3.68,18.0,44.0,58.0,1,1279.5,1279.5,-111.0,-4.2,GatewayELII,-111,-4.2,GatewayFacilidades,,,GatewayEdificio3,,,GatewayOficina,,
 2026-04-25 13:45:29,Alcance,9.013031005859375,-79.53495788574219,54.0,0.1,8.0,3.68,18.0,45.0,28.0,2,1039.4,1279.9,-106.0,5.0,GatewayELII,-106,5.0,GatewayFacilidades,,,GatewayEdificio3,-119,-8.5,GatewayOficina,,
+2026-04-25 13:45:59,Alcance,9.012979507446289,-79.53495788574219,57.0,0.1,10.0,3.695,18.0,45.0,58.0,1,1285.7,1285.7,-109.0,5.2,GatewayELII,-109,5.2,GatewayFacilidades,,,GatewayEdificio3,,,GatewayOficina,,
