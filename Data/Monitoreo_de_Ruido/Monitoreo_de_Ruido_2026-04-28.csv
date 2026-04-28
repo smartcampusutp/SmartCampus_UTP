@@ -1,0 +1,13 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-04-28 00:00:38,Laboratorios Civil Superior,30.59,Silence,0.0,31.648,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,31.71,30.609,29.583,-117,-12.2
+2026-04-28 00:01:27,Laboratorios Civil Central,50.77,Group 1 (Common),91.064,51.359,Group 1 (Common),50.331,0.0,0.0,0.0,0.0,91.064,0.049,0.0,0.0,8.789,51.425,51.161,49.207,-90,10.5
+2026-04-28 00:01:28,Pasillo Decanato Civil,21.432,Silence,0.0,22.301,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,22.24,21.196,20.886,-85,12.8
+2026-04-28 00:01:48,Lobby Civil,44.89,Silence,0.0,48.064,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,47.233,44.574,43.464,-101,13.0
+2026-04-28 00:02:09,Pasillo Decanato Eléctrica,20.366,Silence,0.0,21.616,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.522,20.23,19.626,-92,10.5
+2026-04-28 00:02:58,Laboratorios Eléctrica Inferior,18.937,Silence,0.0,20.45,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.912,18.732,17.743,-103,3.5
+2026-04-28 00:03:05,Salón - Uma Civil,32.29,Silence,0.0,34.498,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,33.256,32.184,31.082,-99,11.8
+2026-04-28 00:03:11,Salón - Uma Eléctrica,43.99,Silence,0.0,44.615,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.49,43.867,43.625,-100,12.0
+2026-04-28 00:03:53,Salón - Extremo Eléctrica,30.628,Silence,0.0,32.205,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,32.286,30.789,28.886,-105,10.2
+2026-04-28 00:03:58,Pasillo Salones Eléctrica,37.336,Silence,0.0,39.055,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,39.946,37.229,33.878,-83,12.3
+2026-04-28 00:04:11,Salón - Extremo Civil,23.559,Silence,0.0,26.061,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,26.644,23.044,22.087,-80,13.8
+2026-04-28 00:04:18,Laboratorios Eléctrica Centro,23.482,Silence,0.0,24.292,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24.034,23.503,22.827,-92,12.5
