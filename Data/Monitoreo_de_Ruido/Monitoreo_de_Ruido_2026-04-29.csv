@@ -1,0 +1,5 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-04-29 00:00:39,Laboratorios Civil Superior,37.64,Silence,0.0,40.309,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.574,37.798,32.206,-94,9.0
+2026-04-29 00:01:30,Pasillo Decanato Civil,20.676,Silence,0.0,21.454,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.222,20.702,20.169,-95,12.2
+2026-04-29 00:01:50,Lobby Civil,39.675,Silence,0.0,40.707,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.642,39.519,38.747,-84,12.8
+2026-04-29 00:02:11,Pasillo Decanato Eléctrica,19.966,Silence,0.0,20.937,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.215,19.921,18.424,-92,12.0
