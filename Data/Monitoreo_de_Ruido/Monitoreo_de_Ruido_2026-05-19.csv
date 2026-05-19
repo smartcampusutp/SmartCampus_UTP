@@ -1,0 +1,2 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-05-19 00:00:40,Pasillo Salones Civil,48.509,Mixed,68.837,51.735,Group 1 (Common),47.639,0.0,46.818,0.0,0.0,68.837,14.063,8.333,0.955,7.726,52.079,47.16,40.316,-89,11.8
