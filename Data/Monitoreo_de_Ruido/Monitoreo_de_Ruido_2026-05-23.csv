@@ -1,0 +1,7 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-05-23 00:00:07,Laboratorios Civil Inferior,26.18,Silence,0.0,28.231,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,28.528,25.683,24.439,-111,7.2
+2026-05-23 00:00:07,Laboratorios Eléctrica Centro,36.9,Silence,0.0,45.805,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.321,35.89,33.624,-119,-4.5
+2026-05-23 00:00:48,Pasillo Salones Civil,15.905,Silence,0.0,17.384,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,17.458,15.302,14.99,-85,12.0
+2026-05-23 00:00:55,Lobby Civil,40.0,Silence,0.0,40.931,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.812,39.579,39.509,-92,11.8
+2026-05-23 00:01:08,Laboratorios Civil Superior,32.455,Silence,0.0,34.698,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,34.258,31.873,30.709,-95,11.5
+2026-05-23 00:01:58,Pasillo Decanato Civil,22.961,Silence,0.0,23.627,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,23.562,23.097,21.988,-85,11.8
