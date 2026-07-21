@@ -1,0 +1,10 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-07-21 00:00:36,Laboratorios Eléctrica Inferior,15.507,Silence,0.0,19.483,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,16.228,15.497,14.829,-101,7.5
+2026-07-21 00:01:36,Pasillo Decanato Civil,23.659,Silence,0.0,24.494,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24.643,23.741,22.177,-99,13.2
+2026-07-21 00:01:38,Pasillo Salones Civil,41.543,Silence,0.0,51.033,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,50.401,34.07,17.441,-105,11.0
+2026-07-21 00:01:39,Lobby Civil,36.368,Silence,0.0,38.159,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,38.294,36.369,33.521,-109,-1.5
+2026-07-21 00:01:45,Lobby Eléctrica,26.099,Silence,0.0,26.74,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,27.071,26.209,25.143,-95,9.0
+2026-07-21 00:01:49,Salón - Uma Eléctrica,43.211,Silence,0.0,44.128,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.101,43.096,42.523,-99,-1.0
+2026-07-21 00:01:52,Salón - Extremo Civil,16.074,Silence,0.0,18.254,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,19.213,15.736,13.955,-89,9.5
+2026-07-21 00:01:56,Pasillo Salones Eléctrica,34.01,Silence,0.0,40.574,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.446,30.728,28.671,-101,9.2
+2026-07-21 00:02:01,Laboratorios Eléctrica Superior,13.713,Silence,0.0,14.53,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,14.468,13.633,12.907,-99,8.0
