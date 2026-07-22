@@ -1,0 +1,2 @@
+time,deviceName,meterSerialNumber_tag,totalFordwardFlow,instantFlow,Vbat,time_meter_unix,time_meter_str,gatewayCount,gatewayName,gatewayId,rssi,snr,gatewaysReceived
+2026-07-21 20:22:12,mt-b-08-33430397,33430397,0.221,0.0,3.68,2020594920000.0,2034-01-11 12:22:00,1,GatewayFacilidadesDobleBanda815,5813d3fffe4e3661,-97,10.2,"[{""gatewayId"":""5813d3fffe4e3661"",""gatewayName"":""GatewayFacilidadesDobleBanda815"",""rssi"":-97,""snr"":10.2}]"
