@@ -1,0 +1,4 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-07-23 00:00:08,Salón - Extremo Civil,13.914,Silence,0.0,15.548,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.5,13.583,12.933,-91,11.8
+2026-07-23 00:00:10,Pasillo Decanato Eléctrica,20.032,Silence,0.0,21.32,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.995,20.156,19.306,-114,-0.5
+2026-07-23 00:00:20,Salón - Uma Eléctrica,42.855,Silence,0.0,43.663,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.923,42.888,41.843,-114,5.8
