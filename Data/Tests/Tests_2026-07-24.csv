@@ -1,2 +1,2 @@
-time,deviceName,temperature_bme,humidity_bme,temperature_dht,humidity_dht,pressure_hPa,battery_mV,battery_pct,rssi,snr
-2026-07-24 18:24:11,NODO 1.47,25.51,92.7,25.8,99.9,1004.0,4087.0,87.5,-93,8.8
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-07-24 18:42:16,NoiseClasificador,58.22,Mixed,76.88,59.44,Group 1 (Common),58.44,0.0,0.0,0.0,57.88,21.6,0.35,0.0,1.13,76.88,58.64,58.28,57.03,-97,8.2
