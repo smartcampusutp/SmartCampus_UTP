@@ -1,0 +1,2 @@
+time,deviceName,temperature_bme,humidity_bme,temperature_dht,humidity_dht,pressure_hPa,battery_mV,battery_pct,rssi,snr
+2026-07-25 00:22:38,NODO 1.47,24.06,65.69,24.0,70.9,1006.0,4087.0,87.2,-121,-7.2
