@@ -1,0 +1,13 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-07-27 00:00:03,Laboratorios Civil Inferior,40.79,Silence,0.0,41.94,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,42.03,40.42,39.4,-115,-0.8
+2026-07-27 00:00:13,Salón - Extremo Civil,13.142,Silence,0.0,13.676,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.563,13.317,12.302,-90,11.8
+2026-07-27 00:00:15,Laboratorios Eléctrica Superior,16.441,Silence,0.0,16.993,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,16.901,16.286,16.064,-120,-12.2
+2026-07-27 00:00:17,Pasillo Decanato Eléctrica,19.715,Silence,0.0,20.651,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.212,19.763,18.525,-95,9.8
+2026-07-27 00:00:27,Salón - Uma Eléctrica,43.304,Silence,0.0,44.078,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.995,43.341,42.396,-107,11.5
+2026-07-27 00:01:19,Laboratorios Eléctrica Centro,12.541,Silence,0.0,13.231,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.208,12.881,11.722,-117,-6.2
+2026-07-27 00:01:31,Pasillo Salones Civil,15.091,Silence,0.0,16.941,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,16.693,14.643,13.937,-106,6.8
+2026-07-27 00:01:53,Pasillo Decanato Civil,17.663,Silence,0.0,18.535,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,18.315,17.766,16.53,-105,1.8
+2026-07-27 00:01:55,Salón - Extremo Eléctrica,15.409,Silence,0.0,16.394,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,16.143,15.642,14.586,-97,9.2
+2026-07-27 00:02:01,Lobby Eléctrica,24.419,Silence,0.0,25.108,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24.872,24.508,23.835,-93,13.8
+2026-07-27 00:02:22,Laboratorios Civil Superior,32.091,Silence,0.0,33.854,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,33.889,31.851,29.865,-97,12.5
+2026-07-27 00:02:23,Pasillo Salones Eléctrica,30.163,Silence,0.0,32.362,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,32.133,29.519,27.779,-87,13.2
