@@ -1,0 +1,15 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-07-31 00:00:04,Laboratorios Civil Central,48.25,Group 1 (Common),94.79,49.84,Group 1 (Common),48.53,0.0,0.0,0.0,0.0,94.79,0.09,1.95,0.04,3.08,49.6,48.29,47.09,-117,-7.0
+2026-07-31 00:00:09,Laboratorios Eléctrica Inferior,16.35,Silence,0.0,18.0,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,18.04,16.42,14.69,-109,4.2
+2026-07-31 00:00:18,Lobby Eléctrica,30.08,Silence,0.0,33.6,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,32.11,30.15,28.58,-91,12.8
+2026-07-31 00:00:21,Laboratorios Civil Inferior,40.49,Silence,0.0,41.02,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,41.03,40.37,40.09,-112,6.0
+2026-07-31 00:00:26,Pasillo Salones Eléctrica,28.48,Silence,0.0,29.38,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,29.52,28.14,27.38,-101,12.0
+2026-07-31 00:00:36,Salón - Uma Eléctrica,44.09,Silence,0.0,44.95,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.9,44.05,43.35,-101,7.8
+2026-07-31 00:01:03,Salón - Extremo Civil,13.99,Silence,0.0,16.03,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.86,13.62,13.07,-96,11.2
+2026-07-31 00:01:07,Pasillo Salones Civil,14.79,Silence,0.0,15.41,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.6,14.8,14.31,-100,11.5
+2026-07-31 00:01:20,Laboratorios Civil Superior,31.53,Silence,0.0,34.22,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,33.77,31.24,30.05,-108,10.5
+2026-07-31 00:01:29,Laboratorios Eléctrica Centro,14.86,Silence,0.0,15.51,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.34,14.73,14.48,-119,-4.0
+2026-07-31 00:02:48,Lobby Civil,55.27,Mixed,50.61,58.88,Group 2 (Impact),53.58,54.44,0.0,0.0,0.0,31.68,50.61,0.26,4.17,13.37,59.79,53.85,52.63,-111,3.5
+2026-07-31 00:02:56,Pasillo Decanato Civil,22.47,Silence,0.0,23.29,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,23.53,22.44,21.57,-112,2.0
+2026-07-31 00:04:10,Salón - Extremo Eléctrica,18.03,Silence,0.0,19.16,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,19.06,18.03,16.78,-87,12.8
+2026-07-31 00:04:17,Laboratorios Eléctrica Superior,13.57,Silence,0.0,14.64,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,14.53,13.41,13.12,-95,11.5
