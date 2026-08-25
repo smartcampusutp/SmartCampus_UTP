@@ -1,0 +1,2 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-08-25 00:01:18,Salón - Extremo Eléctrica,58.65,Group 5 (Vehicle),85.2,62.69,Group 5 (Vehicle),23.89,0.0,0.0,0.0,58.98,12.72,1.09,0.3,0.61,85.2,64.22,57.14,22.05,-108,3.8
