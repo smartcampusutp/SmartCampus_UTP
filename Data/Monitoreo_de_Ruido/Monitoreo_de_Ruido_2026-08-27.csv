@@ -1647,3 +1647,6 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-08-27 08:38:13,Pasillo Salones Civil,56.83,Group 1 (Common),97.18,60.67,Group 1 (Common),55.58,0.0,0.0,0.0,0.0,97.18,0.3,0.0,2.47,0.0,61.95,55.54,51.96,-97,12.5
 2026-08-27 08:38:19,Laboratorios Civil Superior,54.52,Group 1 (Common),71.57,55.25,Group 1 (Common),54.63,0.0,0.0,0.0,0.0,71.57,0.0,0.0,0.0,28.43,54.94,54.67,53.94,-108,8.8
 2026-08-27 08:38:46,Laboratorios Eléctrica Centro,58.89,Group 1 (Common),76.52,61.72,Group 1 (Common),59.52,0.0,0.0,0.0,0.0,76.52,0.04,12.93,6.99,3.39,61.31,58.71,55.27,-119,-9.5
+2026-08-27 08:39:34,Laboratorios Eléctrica Superior,47.11,Mixed,69.57,51.06,Group 5 (Vehicle),47.41,0.0,0.0,0.0,47.81,29.6,0.09,0.04,0.61,69.57,52.27,45.3,44.19,-111,5.0
+2026-08-27 08:39:46,Pasillo Decanato Civil,53.77,Group 1 (Common),99.05,58.54,Group 1 (Common),55.15,0.0,0.0,0.0,0.0,99.05,0.04,0.56,0.09,0.3,55.26,53.67,52.58,-113,2.0
+2026-08-27 08:39:52,Lobby Civil,60.55,Group 1 (Common),99.09,64.93,Group 1 (Common),61.37,0.0,0.0,0.0,0.0,99.09,0.04,0.0,0.78,0.0,63.62,60.69,55.73,-109,9.0
