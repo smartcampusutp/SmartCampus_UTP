@@ -3056,3 +3056,5 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-08-26 21:16:47,Pasillo Decanato Eléctrica,23.14,Silence,0.0,24.11,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24.29,22.84,22.32,-109,8.2
 2026-08-26 21:16:51,Laboratorios Civil Central,65.94,Group 1 (Common),75.74,66.55,Group 1 (Common),65.95,0.0,0.0,0.0,65.58,75.74,0.39,0.0,0.61,23.26,66.64,65.93,65.31,-107,10.8
 2026-08-26 21:16:55,Laboratorios Eléctrica Inferior,68.08,Mixed,63.76,69.85,Group 1 (Common),68.18,0.0,0.0,0.0,68.32,63.76,0.0,0.35,1.22,34.55,70.18,67.76,65.58,-113,5.2
+2026-08-26 21:17:12,Laboratorios Civil Inferior,54.79,Group 1 (Common),92.36,55.69,Group 1 (Common),54.81,0.0,0.0,0.0,0.0,92.36,0.52,0.0,0.17,6.94,55.97,54.55,53.85,-120,-7.8
+2026-08-26 21:17:14,Lobby Eléctrica,48.97,Mixed,48.57,50.31,Group 3 (Rotary Tool),0.0,0.0,49.46,0.0,48.89,9.33,12.67,48.57,0.09,29.38,50.18,48.89,47.65,-96,11.5
