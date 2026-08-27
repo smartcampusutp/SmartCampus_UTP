@@ -1511,3 +1511,4 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-08-27 07:56:28,Salón - Uma Civil,55.29,Mixed,63.67,61.75,Group 4 (Person),0.0,0.0,0.0,55.71,48.13,0.0,14.24,4.3,17.8,63.67,62.65,48.03,44.07,-119,-7.2
 2026-08-27 07:56:50,Pasillo Decanato Eléctrica,49.55,Mixed,64.06,51.75,Group 2 (Impact),48.75,49.65,0.0,0.0,0.0,64.06,32.68,0.22,0.22,2.78,52.12,48.81,47.4,-103,9.8
 2026-08-27 07:56:54,Laboratorios Civil Central,73.57,Group 1 (Common),99.61,75.71,Group 1 (Common),73.07,0.0,0.0,0.0,0.0,99.61,0.0,0.0,0.0,0.0,76.14,73.83,66.78,-118,-7.5
+2026-08-27 07:56:57,Laboratorios Eléctrica Inferior,61.85,Mixed,63.59,64.65,Group 1 (Common),62.54,0.0,0.0,0.0,60.58,36.11,0.04,0.0,0.26,63.59,65.14,61.15,57.75,-114,4.0
