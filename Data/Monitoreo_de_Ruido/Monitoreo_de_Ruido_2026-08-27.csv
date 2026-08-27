@@ -1546,3 +1546,4 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-08-27 08:06:57,Laboratorios Eléctrica Inferior,54.5,Mixed,49.74,55.37,Group 5 (Vehicle),54.69,0.0,0.0,0.0,55.31,49.74,2.04,0.04,0.91,47.18,55.43,54.51,53.18,-114,-1.8
 2026-08-27 08:07:14,Laboratorios Civil Inferior,56.66,Group 1 (Common),86.63,59.97,Group 1 (Common),56.64,0.0,0.0,0.0,57.46,86.63,0.0,0.0,0.0,13.19,61.08,55.0,54.01,-118,-8.2
 2026-08-27 08:07:16,Lobby Eléctrica,64.32,Mixed,66.58,66.17,Group 1 (Common),64.68,0.0,64.68,0.0,64.59,66.58,2.91,10.63,7.29,12.67,65.98,63.99,62.35,-95,9.2
+2026-08-27 08:07:39,Pasillo Salones Eléctrica,43.37,Silence,0.0,45.5,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,47.36,43.99,35.74,-97,12.2
