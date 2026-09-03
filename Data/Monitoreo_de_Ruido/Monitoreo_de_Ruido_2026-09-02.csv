@@ -138,3 +138,4 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-09-02 21:28:24,Salón - Extremo Eléctrica,58.16,Mixed,66.19,65.7,Group 4 (Person),0.0,31.8,0.0,61.88,37.26,3.21,18.45,0.56,66.19,11.41,66.24,39.32,28.4,-95,8.8
 2026-09-02 21:28:28,Salón - Uma Eléctrica,62.14,Group 4 (Person),75.82,67.85,Group 1 (Common),64.54,0.0,0.0,63.74,0.0,23.96,0.0,0.0,75.82,0.0,66.15,62.36,50.56,-109,9.2
 2026-09-02 21:28:43,Laboratorios Eléctrica Inferior,60.05,Group 1 (Common),83.72,63.06,Group 1 (Common),60.41,0.0,0.0,0.0,0.0,83.72,0.04,0.0,0.65,15.41,63.2,59.37,55.48,-114,4.5
+2026-09-02 21:30:36,Laboratorios Civil Inferior,51.09,Mixed,45.01,52.19,Group 5 (Vehicle),51.16,50.64,0.0,0.0,50.89,38.24,11.02,2.91,2.78,45.01,52.41,50.96,49.96,-115,-1.8
