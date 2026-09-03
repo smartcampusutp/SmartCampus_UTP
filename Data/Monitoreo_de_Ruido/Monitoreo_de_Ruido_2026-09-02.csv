@@ -1,0 +1,2 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-09-02 20:47:42,Lobby Eléctrica,67.46,Mixed,58.81,70.29,Group 5 (Vehicle),64.51,0.0,0.0,68.01,69.07,58.81,0.0,0.04,7.99,32.81,70.41,67.31,63.97,-96,11.8
