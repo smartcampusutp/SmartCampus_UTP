@@ -1,0 +1,2 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-09-03 00:00:36,Laboratorios Civil Inferior,48.48,Mixed,66.85,49.04,Group 1 (Common),48.7,0.0,0.0,0.0,48.35,31.35,0.88,0.2,0.68,66.85,48.8,48.45,47.99,-119,-4.5
