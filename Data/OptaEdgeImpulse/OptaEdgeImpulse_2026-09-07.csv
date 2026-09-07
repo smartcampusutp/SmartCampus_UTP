@@ -1,0 +1,2 @@
+time,gatewayId,deviceName,gwSeq,accXRMS,accYRMS,accZRMS,temperature,humidity,bvoc,iaq,anomaly,label,classConfidence
+2026-09-07 00:00:25,OPTA,NICLABH1,748865,0.0049,0.0542,0.9958,29.94,47.17,0.68,670.0,-0.899,Motor_apagado,0.996
