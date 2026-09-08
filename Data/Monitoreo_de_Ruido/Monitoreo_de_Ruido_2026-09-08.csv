@@ -1,0 +1,4 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-09-08 00:01:00,Laboratorios Civil Inferior,47.16,Mixed,46.74,47.64,Group 5 (Vehicle),0.0,47.06,0.0,0.0,47.26,9.9,46.74,4.95,3.43,34.81,47.63,47.15,46.53,-117,-3.0
+2026-09-08 00:03:06,Laboratorios Civil Central,63.35,Mixed,62.2,63.94,Group 1 (Common),63.47,0.0,0.0,0.0,63.35,62.2,12.07,0.0,2.6,23.0,64.01,63.4,62.33,-101,11.8
+2026-09-08 00:03:07,Lobby Eléctrica,29.3,Silence,0.0,30.22,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,30.04,29.25,28.27,-113,6.0
