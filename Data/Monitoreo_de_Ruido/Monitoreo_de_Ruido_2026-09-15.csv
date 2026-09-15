@@ -1,0 +1,15 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-09-15 00:01:29,Laboratorios Civil Inferior,40.23,Silence,0.0,41.06,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,41.27,40.18,38.88,-119,-2.0
+2026-09-15 00:03:35,Laboratorios Civil Central,51.49,Group 1 (Common),83.33,53.04,Group 1 (Common),51.28,0.0,0.0,0.0,0.0,83.33,0.13,0.0,0.17,16.32,53.6,51.09,48.95,-114,4.0
+2026-09-15 00:03:38,Lobby Eléctrica,25.04,Silence,0.0,25.86,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,25.7,25.11,24.17,-94,12.5
+2026-09-15 00:03:39,Laboratorios Eléctrica Superior,26.02,Silence,0.0,27.17,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,26.88,26.01,25.23,-97,11.8
+2026-09-15 00:03:44,Pasillo Decanato Civil,19.82,Silence,0.0,20.94,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.53,19.67,18.85,-105,9.8
+2026-09-15 00:03:51,Lobby Civil,39.73,Silence,0.0,40.32,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,40.17,39.81,39.0,-105,8.8
+2026-09-15 00:03:54,Pasillo Salones Eléctrica,36.46,Silence,0.0,40.85,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,41.8,34.63,28.95,-108,8.2
+2026-09-15 00:03:57,Pasillo Salones Civil,14.48,Silence,0.0,15.06,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,14.95,14.47,13.68,-109,6.5
+2026-09-15 00:03:58,Laboratorios Eléctrica Centro,52.61,Mixed,51.9,67.74,Group 3 (Rotary Tool),0.0,60.61,69.25,0.0,48.82,0.0,31.59,15.53,1.17,51.9,60.57,46.26,41.4,-107,9.5
+2026-09-15 00:04:00,Laboratorios Civil Superior,42.45,Silence,0.0,49.7,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,51.91,34.66,32.04,-105,11.2
+2026-09-15 00:04:01,Pasillo Decanato Eléctrica,19.42,Silence,0.0,20.13,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.13,19.55,18.22,-103,11.2
+2026-09-15 00:04:03,Salón - Uma Civil,10.14,Silence,0.0,10.8,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,10.54,10.22,9.17,-115,4.0
+2026-09-15 00:04:11,Salón - Extremo Civil,15.28,Silence,0.0,19.95,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,18.16,14.87,14.2,-95,9.8
+2026-09-15 00:04:25,Salón - Extremo Eléctrica,34.9,Silence,0.0,42.17,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.31,31.28,21.14,-85,10.8
