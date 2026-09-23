@@ -1,0 +1,6 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-09-23 00:00:10,Salón - Extremo Eléctrica,18.0,Silence,0.0,19.07,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,19.04,18.02,16.48,-84,11.0
+2026-09-23 00:00:11,Laboratorios Eléctrica Inferior,23.39,Silence,0.0,25.21,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,25.54,23.46,20.15,-114,6.8
+2026-09-23 00:00:14,Salón - Uma Eléctrica,41.58,Silence,0.0,42.21,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,42.27,41.73,40.54,-111,9.5
+2026-09-23 00:01:47,Laboratorios Eléctrica Superior,12.03,Silence,0.0,12.63,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,12.49,12.09,11.5,-117,-4.2
+2026-09-23 00:02:07,Laboratorios Civil Inferior,41.55,Silence,0.0,42.37,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,42.15,41.42,41.14,-117,-4.8
