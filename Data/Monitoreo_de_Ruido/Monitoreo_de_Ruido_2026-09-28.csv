@@ -3030,3 +3030,4 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-09-28 17:15:54,Pasillo Salones Civil,59.49,Mixed,63.06,65.02,Group 2 (Impact),57.41,57.62,0.0,0.0,0.0,34.98,63.06,0.0,1.95,0.0,65.46,56.55,53.58,-93,8.2
 2026-09-28 17:16:01,Salón - Uma Eléctrica,43.81,Silence,0.0,44.88,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.95,43.55,42.66,-117,-0.8
 2026-09-28 17:16:16,Laboratorios Eléctrica Inferior,55.78,Group 1 (Common),85.55,57.62,Group 1 (Common),56.09,0.0,0.0,0.0,0.0,85.55,0.04,0.17,5.82,8.38,57.4,55.99,53.12,-111,2.8
+2026-09-28 17:16:23,Salón - Extremo Eléctrica,48.12,Mixed,59.07,51.96,Group 2 (Impact),45.46,48.64,0.0,0.0,46.72,10.89,59.07,2.6,1.52,25.87,53.44,46.84,44.99,-102,9.2
