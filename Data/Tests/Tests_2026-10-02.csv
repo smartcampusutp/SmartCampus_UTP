@@ -1,2 +1,1 @@
-time,deviceName,temperature_bme,humidity_bme,temperature_dht,humidity_dht,pressure_hPa,battery_mV,battery_pct,rssi,snr
-2026-10-02 13:08:22,NODO 1.24,,,,,,4013.0,88.5,-108,8.0
+time,deviceName,temperature,humidity,battery_mV,battery_voltage,sensor_ok,heater_used,interval_minutes,rssi,snr
