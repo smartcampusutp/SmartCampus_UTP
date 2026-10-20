@@ -18,3 +18,4 @@ time,deviceName,temperature,humidity,battery_mV,battery_voltage,sensor_ok,heater
 2026-10-20 08:52:36,NODO 1.24,28.7,97.53,3126.0,3.126,True,True,30.0,-93,7.2
 2026-10-20 09:22:34,NODO 1.24,29.34,93.18,3298.0,3.298,True,True,30.0,-93,8.0
 2026-10-20 09:52:28,NODO 1.24,28.43,96.07,3352.0,3.352,True,True,30.0,-105,5.0
+2026-10-20 10:22:22,NODO 1.24,27.6,96.4,3352.0,3.352,True,True,30.0,-113,
