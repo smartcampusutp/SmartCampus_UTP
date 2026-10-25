@@ -1,0 +1,3 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-10-25 00:00:06,Laboratorios Eléctrica Superior,26.68,Silence,0.0,27.86,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,27.54,26.53,25.71,-97,9.0
+2026-10-25 00:01:10,Laboratorios Civil Central,51.88,Group 1 (Common),98.7,52.45,Group 1 (Common),51.73,0.0,0.0,0.0,0.0,98.7,0.0,0.0,0.0,1.09,52.4,52.04,51.26,-112,5.2
