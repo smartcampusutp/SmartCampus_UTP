@@ -1,0 +1,2 @@
+time,deviceName,temperature,humidity,battery_mV,battery_voltage,sensor_ok,heater_used,interval_minutes,rssi,snr
+2026-11-07 00:02:42,NODO 1.12,25.29,97.18,3606.0,3.606,True,True,30.0,-96,9.5
