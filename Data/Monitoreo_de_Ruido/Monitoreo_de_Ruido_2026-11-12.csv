@@ -1,0 +1,13 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-11-12 00:01:43,Laboratorios Eléctrica Superior,36.14,Silence,0.0,37.06,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,36.9,35.96,35.15,-113,5.8
+2026-11-12 00:02:35,Laboratorios Civil Central,61.85,Group 1 (Common),86.02,62.32,Group 1 (Common),61.86,0.0,0.0,0.0,0.0,86.02,3.91,0.0,0.82,9.24,62.32,61.84,61.5,-113,5.0
+2026-11-12 00:02:50,Pasillo Decanato Civil,20.97,Silence,0.0,21.85,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,22.54,20.91,19.2,-109,8.0
+2026-11-12 00:02:56,Salón - Extremo Civil,13.38,Silence,0.0,14.68,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.82,13.38,12.99,-91,12.5
+2026-11-12 00:02:57,Pasillo Salones Civil,35.85,Silence,0.0,42.5,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.08,30.62,13.23,-111,5.5
+2026-11-12 00:03:02,Laboratorios Civil Inferior,44.22,Silence,0.0,44.68,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.6,44.26,43.49,-119,-4.8
+2026-11-12 00:03:16,Lobby Civil,45.19,Mixed,55.95,45.88,Group 2 (Impact),45.36,45.11,0.0,0.0,45.48,19.36,55.95,0.13,1.74,22.74,46.09,45.08,44.54,-107,6.0
+2026-11-12 00:03:18,Salón - Uma Eléctrica,42.22,Silence,0.0,42.76,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,42.87,42.14,41.74,-119,-3.0
+2026-11-12 00:03:23,Pasillo Decanato Eléctrica,20.68,Silence,0.0,21.34,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.53,20.24,19.96,-119,-13.0
+2026-11-12 00:03:30,Laboratorios Eléctrica Centro,45.83,Group 5 (Vehicle),94.92,46.28,Group 5 (Vehicle),0.0,0.0,0.0,0.0,45.72,3.91,0.04,1.09,0.09,94.92,46.18,45.86,45.07,-115,5.0
+2026-11-12 00:03:31,Pasillo Salones Eléctrica,27.9,Silence,0.0,28.69,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,28.43,27.87,27.34,-113,3.2
+2026-11-12 00:03:52,Lobby Eléctrica,37.38,Silence,0.0,38.04,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,38.31,37.03,36.88,-115,-4.5
