@@ -1,0 +1,12 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-11-13 00:01:49,Laboratorios Eléctrica Superior,37.13,Silence,0.0,38.92,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,38.8,36.84,35.19,-113,6.5
+2026-11-13 00:02:40,Laboratorios Civil Central,62.74,Mixed,52.2,63.82,Group 1 (Common),63.09,0.0,0.0,0.0,62.67,52.2,7.86,0.0,2.93,36.91,63.44,62.71,62.06,-113,-7.5
+2026-11-13 00:02:54,Pasillo Decanato Civil,51.39,Group 1 (Common),96.79,52.43,Group 1 (Common),51.42,0.0,0.0,0.0,0.0,96.79,0.56,2.13,0.65,0.0,52.51,51.24,49.84,-107,10.2
+2026-11-13 00:03:00,Salón - Extremo Civil,13.47,Silence,0.0,14.05,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,14.19,13.26,12.56,-91,12.8
+2026-11-13 00:03:03,Pasillo Salones Civil,15.2,Silence,0.0,16.25,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.8,15.14,14.38,-109,10.0
+2026-11-13 00:03:07,Laboratorios Civil Inferior,43.64,Silence,0.0,44.32,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,44.22,43.5,43.25,-117,-0.8
+2026-11-13 00:03:21,Lobby Civil,34.96,Silence,0.0,35.54,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,35.42,34.95,34.29,-102,9.0
+2026-11-13 00:03:23,Salón - Uma Eléctrica,42.55,Silence,0.0,43.64,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.37,42.6,41.5,-120,-1.2
+2026-11-13 00:03:29,Pasillo Decanato Eléctrica,20.45,Silence,0.0,21.31,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.33,20.47,19.32,-119,-4.8
+2026-11-13 00:03:36,Laboratorios Eléctrica Centro,42.75,Silence,0.0,43.37,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.39,42.81,41.89,-109,7.8
+2026-11-13 00:03:36,Pasillo Salones Eléctrica,29.62,Silence,0.0,30.16,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,30.1,29.64,29.09,-111,7.0
