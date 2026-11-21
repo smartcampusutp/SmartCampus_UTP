@@ -1,0 +1,6 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-11-21 00:00:06,Pasillo Decanato Eléctrica,20.1,Silence,0.0,20.7,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.85,20.13,19.26,-114,1.5
+2026-11-21 00:00:53,Salón - Uma Eléctrica,42.1,Silence,0.0,42.83,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,42.83,42.04,41.41,-119,1.2
+2026-11-21 00:01:18,Lobby Eléctrica,37.54,Silence,0.0,38.31,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,37.99,37.45,36.69,-107,11.2
+2026-11-21 00:01:45,Pasillo Salones Eléctrica,28.97,Silence,0.0,29.6,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,29.54,29.07,28.17,-119,-3.0
+2026-11-21 00:01:53,Laboratorios Eléctrica Superior,36.76,Silence,0.0,37.46,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,37.3,36.94,36.07,-121,-11.0
