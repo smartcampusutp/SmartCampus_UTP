@@ -1,0 +1,14 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-11-22 00:00:11,Pasillo Decanato Eléctrica,19.76,Silence,0.0,20.81,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.11,20.02,18.55,-114,1.0
+2026-11-22 00:00:59,Salón - Uma Eléctrica,44.59,Silence,0.0,45.22,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,45.51,44.41,44.19,-117,0.5
+2026-11-22 00:01:23,Lobby Eléctrica,38.14,Silence,0.0,39.43,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,39.39,38.11,36.88,-108,9.5
+2026-11-22 00:01:58,Laboratorios Eléctrica Superior,37.36,Silence,0.0,38.02,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,37.89,37.53,36.69,-120,-12.5
+2026-11-22 00:01:58,Lobby Civil,56.25,Group 1 (Common),78.82,62.84,Group 1 (Common),57.72,0.0,0.0,0.0,0.0,78.82,8.29,0.04,12.54,0.43,62.09,54.96,48.92,-95,12.8
+2026-11-22 00:02:04,Laboratorios Eléctrica Inferior,52.66,Group 5 (Vehicle),93.71,53.72,Group 5 (Vehicle),0.0,0.0,0.0,0.0,52.8,3.52,1.3,0.35,1.17,93.71,53.69,52.75,51.66,-114,2.8
+2026-11-22 00:02:05,Pasillo Decanato Civil,38.0,Silence,0.0,39.36,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,39.57,37.64,36.93,-113,7.0
+2026-11-22 00:02:08,Salón - Extremo Civil,16.42,Silence,0.0,16.85,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,17.03,16.45,15.8,-103,12.0
+2026-11-22 00:02:13,Laboratorios Civil Central,57.66,Group 1 (Common),95.23,58.36,Group 1 (Common),57.63,0.0,0.0,0.0,0.0,95.23,0.91,0.0,0.48,3.47,58.4,57.54,57.09,-114,6.0
+2026-11-22 00:02:30,Salón - Extremo Eléctrica,15.5,Silence,0.0,16.03,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.84,15.54,15.2,-118,-3.2
+2026-11-22 00:02:37,Pasillo Salones Civil,31.63,Silence,0.0,32.48,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,32.5,31.58,30.81,-109,8.8
+2026-11-22 00:02:49,Salón - Uma Civil,42.91,Silence,0.0,45.02,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,45.04,42.72,41.17,-119,-11.0
+2026-11-22 00:05:59,Salón - Uma Eléctrica,44.42,Silence,0.0,45.36,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,45.22,44.35,43.91,-112,3.2
