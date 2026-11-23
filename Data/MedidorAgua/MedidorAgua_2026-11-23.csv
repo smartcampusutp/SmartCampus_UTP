@@ -1,0 +1,2 @@
+time,deviceName,meterSerialNumber_tag,totalFordwardFlow,instantFlow,Vbat,time_meter_unix,time_meter_str,rssi,snr
+2026-11-23 00:07:34,mt-b-08-33430397,33430397,90.381,0.012,3.68,1795392420000.0,2026-11-23 00:07:00,-93,10.2
