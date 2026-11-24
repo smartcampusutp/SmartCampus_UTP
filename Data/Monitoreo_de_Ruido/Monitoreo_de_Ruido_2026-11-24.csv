@@ -1145,3 +1145,6 @@ time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_clas
 2026-11-24 07:07:23,Laboratorios Civil Central,63.36,Group 4 (Person),77.78,68.09,Group 4 (Person),62.63,0.0,0.0,64.83,63.13,7.29,1.82,0.0,77.78,12.89,65.55,63.18,59.63,-119,-11.8
 2026-11-24 07:07:40,Laboratorios Eléctrica Centro,53.28,Mixed,52.17,58.95,Group 1 (Common),56.37,0.0,0.0,0.0,47.39,52.17,2.86,5.38,2.73,36.72,59.17,46.72,45.59,-115,5.2
 2026-11-24 07:12:13,Pasillo Decanato Eléctrica,28.6,Silence,0.0,30.18,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,31.16,28.2,25.81,-114,0.8
+2026-11-24 07:17:12,Pasillo Decanato Eléctrica,30.23,Silence,0.0,32.8,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,33.25,30.83,26.78,-115,-0.8
+2026-11-24 07:17:31,Pasillo Salones Eléctrica,47.67,Mixed,52.73,53.24,Group 3 (Rotary Tool),0.0,48.26,48.05,0.0,0.0,0.0,52.73,36.33,0.95,9.72,53.92,47.3,36.76,-112,6.2
+2026-11-24 07:18:56,Laboratorios Civil Central,60.2,Group 1 (Common),97.4,63.29,Group 1 (Common),59.71,0.0,0.0,0.0,0.0,97.4,1.78,0.3,0.3,0.22,64.65,57.12,54.44,-120,-5.5
