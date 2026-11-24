@@ -1,0 +1,14 @@
+time,deviceName,laeq_global_dB,dominant_class,dominant_pct,lafmax_dB,lafmax_class,LAeq_common,LAeq_impact,LAeq_rotarytool,LAeq_person,LAeq_vehicle,pct_common,pct_impact,pct_rotarytool,pct_person,pct_vehicle,L10_dB,L50_dB,L90_dB,rssi,snr
+2026-11-24 00:00:22,Pasillo Decanato Eléctrica,19.36,Silence,0.0,20.2,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,20.23,19.21,18.76,-115,1.0
+2026-11-24 00:01:10,Salón - Uma Eléctrica,42.68,Silence,0.0,43.32,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,43.19,42.73,41.75,-111,4.8
+2026-11-24 00:01:33,Lobby Eléctrica,38.07,Silence,0.0,38.87,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,38.95,38.11,37.15,-107,11.0
+2026-11-24 00:02:02,Pasillo Salones Eléctrica,29.69,Silence,0.0,30.58,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,30.9,29.52,29.11,-117,-5.5
+2026-11-24 00:02:09,Lobby Civil,48.33,Mixed,61.46,49.09,Group 1 (Common),48.21,48.03,0.0,0.0,0.0,61.46,28.99,0.0,1.82,7.68,49.14,48.38,47.23,-119,
+2026-11-24 00:02:09,Laboratorios Eléctrica Superior,35.17,Silence,0.0,36.13,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,36.18,35.16,34.06,-120,-7.2
+2026-11-24 00:02:13,Laboratorios Eléctrica Inferior,52.21,Group 5 (Vehicle),90.32,52.7,Group 5 (Vehicle),51.91,0.0,0.0,0.0,52.27,8.33,0.26,0.04,1.0,90.32,52.75,52.24,51.73,-118,-3.2
+2026-11-24 00:02:15,Pasillo Decanato Civil,27.88,Silence,0.0,28.67,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,28.64,27.86,26.06,-120,-13.2
+2026-11-24 00:02:18,Salón - Extremo Civil,43.08,Silence,0.0,46.76,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,47.24,42.57,31.97,-103,11.5
+2026-11-24 00:02:22,Laboratorios Civil Central,61.25,Mixed,48.48,61.76,Group 5 (Vehicle),61.2,61.05,0.0,0.0,61.14,25.39,17.84,0.17,8.12,48.48,61.84,61.09,60.64,-119,0.8
+2026-11-24 00:02:39,Laboratorios Eléctrica Centro,45.3,Group 5 (Vehicle),73.39,46.16,Group 5 (Vehicle),45.23,0.0,0.0,0.0,45.16,24.26,0.43,1.39,0.3,73.39,45.85,45.19,44.8,-115,3.2
+2026-11-24 00:02:41,Salón - Extremo Eléctrica,15.35,Silence,0.0,16.21,Silence,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.95,15.52,14.53,-105,12.5
+2026-11-24 00:02:59,Salón - Uma Civil,66.84,Group 5 (Vehicle),76.82,71.68,Group 5 (Vehicle),0.0,0.0,67.17,0.0,68.53,0.04,7.77,13.89,1.61,76.82,71.93,63.29,50.66,-111,6.2
