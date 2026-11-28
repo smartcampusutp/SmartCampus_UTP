@@ -1,2 +1,3 @@
 time,deviceName,devEui,fPort,fCnt,uplink_time,schema_version,gatewayName,gatewayId,lorawan_rssi_dbm,lorawan_snr_db,receiver_id,sequence,window_seconds,coverage_pct,active_seconds,mean_score,max_score,age_end_seconds,partial
 2026-11-28 00:05:22,CSI_Heltec_V2,027c9ebd4613d001,11,86,2026-11-28T05:05:04.817+00:00,3.0,GatewayFacilidadesDobleBanda07,5813d3fffe4e3660,-116,1.2,2.0,86.0,600.0,99.0,14.0,1.78,7.35,918.0,False
+2026-11-28 00:15:22,CSI_Heltec_V2,027c9ebd4613d001,11,87,2026-11-28T05:15:04.836+00:00,3.0,GatewayFacilidadesDobleBanda07,5813d3fffe4e3660,-114,2.0,2.0,87.0,600.0,99.0,34.0,1.87,8.8,917.0,False
