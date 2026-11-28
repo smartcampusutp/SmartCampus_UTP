@@ -36,3 +36,4 @@ time,deviceName,devEui,fPort,fCnt,uplink_time,schema_version,gatewayName,gateway
 2026-11-27 20:15:21,CSI_Heltec_V2,027c9ebd4613d001,11,63,2026-11-28T01:15:04.377+00:00,3.0,GatewayEdificio3DobleBanda07,00005813d369a0ef,-119,-1.0,2.0,63.0,600.0,99.0,42.0,1.92,8.35,917.0,False
 2026-11-27 20:25:21,CSI_Heltec_V2,027c9ebd4613d001,11,64,2026-11-28T01:25:04.396+00:00,3.0,GatewayFacilidadesDobleBanda07,5813d3fffe4e3660,-114,-0.5,2.0,64.0,600.0,99.0,34.0,1.86,8.86,917.0,False
 2026-11-27 20:35:21,CSI_Heltec_V2,027c9ebd4613d001,11,65,2026-11-28T01:35:04.415+00:00,3.0,GatewayFacilidadesDobleBanda07,5813d3fffe4e3660,-117,1.5,2.0,65.0,600.0,99.0,12.0,1.7,7.62,917.0,False
+2026-11-27 20:45:21,CSI_Heltec_V2,027c9ebd4613d001,11,66,2026-11-28T01:45:04.435+00:00,3.0,GatewayFacilidadesDobleBanda07,5813d3fffe4e3660,-118,-1.0,2.0,66.0,600.0,99.0,27.0,1.77,8.8,917.0,False
